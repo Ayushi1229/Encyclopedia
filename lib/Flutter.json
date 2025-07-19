@@ -1,0 +1,1229 @@
+{
+    "type": "database",
+    "name": "Flutter",
+    "objects": [
+        {
+            "type": "table",
+            "database": null,
+            "name": "Animal",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Animal (KingdomId INTEGER REFERENCES Kingdom (KingdomId) NOT NULL, AnimalId INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL, Name varchar (100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar (100) UNIQUE, PVoice varchar (100) UNIQUE, Photo varchar (100) UNIQUE)",
+            "columns": [
+                {
+                    "name": "KingdomId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Kingdom (KingdomId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "AnimalId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "Name",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "ContinentId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Continent (ContinentId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "TypeId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Type (TypeId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "FoodId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES FoodType (FoodId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sound",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "PVoice",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "Photo",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    1,
+                    "Lion",
+                    1,
+                    1,
+                    2,
+                    "Lion.mp3",
+                    null,
+                    "Lion.jpg"
+                ],
+                [
+                    1,
+                    2,
+                    "Tiger",
+                    1,
+                    1,
+                    2,
+                    "Tiger.mp3",
+                    null,
+                    "Tiger.jpg"
+                ],
+                [
+                    1,
+                    3,
+                    "Elephant",
+                    1,
+                    1,
+                    1,
+                    "Elephant.mp3",
+                    null,
+                    "Elephant.jpg"
+                ],
+                [
+                    1,
+                    4,
+                    "African Deer",
+                    2,
+                    1,
+                    1,
+                    "African Deer.mp3",
+                    null,
+                    "Deer.jpg"
+                ],
+                [
+                    1,
+                    5,
+                    "Giraffe",
+                    2,
+                    1,
+                    1,
+                    "Giraffe.mp3",
+                    null,
+                    "Giraffe.jpg"
+                ],
+                [
+                    1,
+                    6,
+                    "Grizzly Bear",
+                    3,
+                    1,
+                    3,
+                    "Grizzly Bear.mp3",
+                    null,
+                    "Grizzly Bear.jpg"
+                ],
+                [
+                    1,
+                    7,
+                    "Hedgehog",
+                    5,
+                    1,
+                    3,
+                    "Hedgehog.mp3",
+                    null,
+                    "Hedgehog.jpg"
+                ],
+                [
+                    1,
+                    8,
+                    "Jaguar",
+                    4,
+                    1,
+                    2,
+                    "Jaguar.mp3",
+                    null,
+                    "Jaguar.jpg"
+                ],
+                [
+                    1,
+                    9,
+                    "Kangaroo",
+                    6,
+                    1,
+                    1,
+                    "Kangaroo.mp3",
+                    null,
+                    "Kangaroo.png"
+                ],
+                [
+                    1,
+                    10,
+                    "Koala Bear",
+                    6,
+                    1,
+                    1,
+                    "Koala Bear.mp3",
+                    null,
+                    "Koala Bear.jpg"
+                ],
+                [
+                    1,
+                    11,
+                    "Meerkat",
+                    2,
+                    1,
+                    3,
+                    "Meerkat.mp3",
+                    null,
+                    "Meerkat.jpg"
+                ],
+                [
+                    1,
+                    12,
+                    "Snow Leopard",
+                    1,
+                    1,
+                    2,
+                    "Snow Leopard.mp3",
+                    null,
+                    "Snow Leopard.jpg"
+                ],
+                [
+                    1,
+                    13,
+                    "Wolverine",
+                    3,
+                    1,
+                    3,
+                    "Wolverine.mp3",
+                    null,
+                    "Wolverine.jpg"
+                ],
+                [
+                    1,
+                    14,
+                    "Zebra",
+                    2,
+                    1,
+                    1,
+                    "Zebra.mp3",
+                    null,
+                    "Zebra.jpg"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Bird",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Bird (KingdomId INTEGER REFERENCES Kingdom (KingdomId) NOT NULL, BirdId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name varchar (100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar (100) UNIQUE, PVoice varchar (100) UNIQUE, Photo varchar (100) UNIQUE)",
+            "columns": [
+                {
+                    "name": "KingdomId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Kingdom (KingdomId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "BirdId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "Name",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "ContinentId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Continent (ContinentId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "TypeId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Type (TypeId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "FoodId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES FoodType (FoodId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sound",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "PVoice",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "Photo",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                }
+            ],
+            "rows": [
+                [
+                    2,
+                    1,
+                    "Ostrich",
+                    6,
+                    1,
+                    1,
+                    "Ostrich.wav",
+                    null,
+                    "Ostrich.jpg"
+                ],
+                [
+                    2,
+                    2,
+                    "Bee Eater",
+                    2,
+                    3,
+                    2,
+                    "Bee Eater.mp3",
+                    null,
+                    "Bee Eater.jpg"
+                ],
+                [
+                    2,
+                    3,
+                    "Emperor Penguin",
+                    7,
+                    2,
+                    2,
+                    "Emperor Penguin.wav",
+                    null,
+                    "Emperor Penguin.jpg"
+                ],
+                [
+                    2,
+                    4,
+                    "King Penguin",
+                    7,
+                    2,
+                    2,
+                    "King Penguin.wav",
+                    null,
+                    "King Penguin.jpg"
+                ],
+                [
+                    2,
+                    5,
+                    "Bronze Tailed Peacock",
+                    1,
+                    1,
+                    1,
+                    "Bronze Tailed Peacock.mp3",
+                    null,
+                    "Bronze Tailed Peacock.jpg"
+                ],
+                [
+                    2,
+                    6,
+                    "Sarus Crane",
+                    1,
+                    3,
+                    1,
+                    "Sarus Crane.wav",
+                    null,
+                    "Sarus Crane.jpg"
+                ],
+                [
+                    2,
+                    7,
+                    "Australian Magpie",
+                    6,
+                    1,
+                    3,
+                    "Australian Magpie.mp3",
+                    null,
+                    "Australian Magpie.jpg"
+                ],
+                [
+                    2,
+                    8,
+                    "Grey Emutai",
+                    2,
+                    3,
+                    3,
+                    "Grey Emutai.mp3",
+                    null,
+                    "Grey Emutai.jpg"
+                ],
+                [
+                    2,
+                    9,
+                    "European Greenfinch ",
+                    5,
+                    3,
+                    1,
+                    "European Greenfinch.mp3",
+                    null,
+                    "European Greenfinch.jpg"
+                ],
+                [
+                    2,
+                    10,
+                    "European Roller",
+                    5,
+                    3,
+                    2,
+                    "European Roller.wav",
+                    null,
+                    "European Roller.jpg"
+                ],
+                [
+                    2,
+                    11,
+                    "American Robin",
+                    3,
+                    3,
+                    3,
+                    "American Robin.mp3",
+                    null,
+                    "American Robin.jpg"
+                ],
+                [
+                    2,
+                    12,
+                    "Northern Cardinal",
+                    3,
+                    3,
+                    3,
+                    "Northern Cardinal.mp3",
+                    null,
+                    "Northern Cardinal.jpg"
+                ],
+                [
+                    2,
+                    13,
+                    "Andean Condor",
+                    4,
+                    3,
+                    2,
+                    "Andean Condor.mp3",
+                    null,
+                    "Andean Condor.jpg"
+                ],
+                [
+                    2,
+                    14,
+                    "Violet Bellied Hummingbird",
+                    4,
+                    3,
+                    1,
+                    "Violet Bellied Hummingbird.mp3",
+                    null,
+                    "Violet Bellied Hummingbird.jpg"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Continent",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE \"Continent\" (\n\t\"ContinentId\"\tINTEGER NOT NULL UNIQUE,\n\t\"ContinentName\"\tvarchar(100) NOT NULL UNIQUE,\n\tPRIMARY KEY(\"ContinentId\" AUTOINCREMENT)\n)",
+            "columns": [
+                {
+                    "name": "ContinentId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "ContinentName",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "PRIMARY KEY",
+                    "definition": "PRIMARY KEY(\"ContinentId\" AUTOINCREMENT)\n"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    "Asia"
+                ],
+                [
+                    2,
+                    "Africa"
+                ],
+                [
+                    3,
+                    "North America"
+                ],
+                [
+                    4,
+                    "South America"
+                ],
+                [
+                    5,
+                    "Europe"
+                ],
+                [
+                    6,
+                    "Australia"
+                ],
+                [
+                    7,
+                    "Antarctica"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "FoodType",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE \"FoodType\" (\n\t\"FoodId\"\tINTEGER NOT NULL UNIQUE,\n\t\"Food\"\tvarchar(100) NOT NULL UNIQUE,\n\tPRIMARY KEY(\"FoodId\" AUTOINCREMENT)\n)",
+            "columns": [
+                {
+                    "name": "FoodId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "Food",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "PRIMARY KEY",
+                    "definition": "PRIMARY KEY(\"FoodId\" AUTOINCREMENT)\n"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    "Herbivorous"
+                ],
+                [
+                    2,
+                    "Carnivorous"
+                ],
+                [
+                    3,
+                    "Omnivorous"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Insect",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Insect (KingdomId INTEGER NOT NULL REFERENCES Kingdom (KingdomId), InsectId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name varchar(100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar(100) UNIQUE, PVoice varchar(100) UNIQUE, Photo varchar(100) UNIQUE)",
+            "columns": [
+                {
+                    "name": "KingdomId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Kingdom (KingdomId)"
+                        }
+                    ]
+                },
+                {
+                    "name": "InsectId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "Name",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "ContinentId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Continent (ContinentId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "TypeId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Type (TypeId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "FoodId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES FoodType (FoodId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sound",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "PVoice",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "Photo",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                }
+            ],
+            "rows": [
+                [
+                    3,
+                    1,
+                    "Mosquito",
+                    1,
+                    3,
+                    2,
+                    null,
+                    null,
+                    "Mosquito.jpg"
+                ],
+                [
+                    3,
+                    2,
+                    "Katydid",
+                    6,
+                    3,
+                    3,
+                    null,
+                    null,
+                    "Katydid.webp"
+                ],
+                [
+                    3,
+                    3,
+                    "Bumble Bee",
+                    3,
+                    3,
+                    2,
+                    null,
+                    null,
+                    "Bumble Bee.jpg"
+                ],
+                [
+                    3,
+                    4,
+                    "Monarch Butterfly",
+                    3,
+                    3,
+                    1,
+                    null,
+                    null,
+                    "Monarch Butterfly.jpg"
+                ],
+                [
+                    3,
+                    5,
+                    "Housefly",
+                    3,
+                    3,
+                    3,
+                    null,
+                    null,
+                    "Housefly.jpg"
+                ],
+                [
+                    3,
+                    6,
+                    "Firefly",
+                    3,
+                    3,
+                    3,
+                    null,
+                    null,
+                    "Firefly.jpeg"
+                ],
+                [
+                    3,
+                    7,
+                    "Drywood Termite",
+                    6,
+                    3,
+                    1,
+                    null,
+                    null,
+                    "Drywood Termite.jpg"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Kingdom",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE \"Kingdom\" (\n\t\"KingdomId\"\tINTEGER NOT NULL UNIQUE,\n\t\"KingdomName\"\tvarchar(100) NOT NULL UNIQUE,\n\tPRIMARY KEY(\"KingdomId\" AUTOINCREMENT)\n)",
+            "columns": [
+                {
+                    "name": "KingdomId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "KingdomName",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "PRIMARY KEY",
+                    "definition": "PRIMARY KEY(\"KingdomId\" AUTOINCREMENT)\n"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    "Animals"
+                ],
+                [
+                    2,
+                    "Birds"
+                ],
+                [
+                    3,
+                    "Insects"
+                ],
+                [
+                    4,
+                    "Reptiles"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Reptile",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Reptile (KingdomId INTEGER NOT NULL, ReptileId INTEGER NOT NULL UNIQUE, Name varchar (100) NOT NULL UNIQUE, ContinentId INTEGER NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER NOT NULL, Sound varchar (100) UNIQUE, PVoice varchar (100) UNIQUE, Photo varchar (100) UNIQUE, PRIMARY KEY (ReptileId AUTOINCREMENT), FOREIGN KEY (ContinentId) REFERENCES Continent (ContinentId), FOREIGN KEY (FoodId) REFERENCES FoodType (FoodId), FOREIGN KEY (KingdomId) REFERENCES Kingdom (KingdomId))",
+            "columns": [
+                {
+                    "name": "KingdomId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "ReptileId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "Name",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "ContinentId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "TypeId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "FOREIGN KEY",
+                            "definition": "REFERENCES Type (TypeId) "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "FoodId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sound",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "PVoice",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                },
+                {
+                    "name": "Photo",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE"
+                        }
+                    ]
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "PRIMARY KEY",
+                    "definition": "PRIMARY KEY (ReptileId AUTOINCREMENT)"
+                },
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "FOREIGN KEY (ContinentId) REFERENCES Continent (ContinentId)"
+                },
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "FOREIGN KEY (FoodId) REFERENCES FoodType (FoodId)"
+                },
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "FOREIGN KEY (KingdomId) REFERENCES Kingdom (KingdomId)"
+                }
+            ],
+            "rows": [
+                [
+                    4,
+                    1,
+                    "Alligator",
+                    3,
+                    1,
+                    2,
+                    "Alligator.mp3",
+                    null,
+                    "Alligator.jpg"
+                ],
+                [
+                    4,
+                    2,
+                    "Cobra",
+                    1,
+                    1,
+                    2,
+                    "Cobra.mp3",
+                    null,
+                    "Cobra.jpg"
+                ],
+                [
+                    4,
+                    3,
+                    "Frog",
+                    4,
+                    1,
+                    3,
+                    "Frog.mp3",
+                    null,
+                    "Frog.jpg"
+                ],
+                [
+                    4,
+                    4,
+                    "Lizard",
+                    6,
+                    1,
+                    3,
+                    "Lizard.mp3",
+                    null,
+                    "Lizard.jpg"
+                ],
+                [
+                    4,
+                    5,
+                    "Python",
+                    1,
+                    1,
+                    2,
+                    "Python.mp3",
+                    null,
+                    "Python.jpg"
+                ],
+                [
+                    4,
+                    6,
+                    "Rattlesnake",
+                    3,
+                    1,
+                    2,
+                    "Rattlesnake.mp3",
+                    null,
+                    "Rattlesnake.jpg"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Type",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Type (TypeId INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL, TypeName varchar (100) UNIQUE NOT NULL)",
+            "columns": [
+                {
+                    "name": "TypeId",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT "
+                        },
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                },
+                {
+                    "name": "TypeName",
+                    "type": "varchar",
+                    "constraints": [
+                        {
+                            "type": "UNIQUE",
+                            "definition": "UNIQUE "
+                        },
+                        {
+                            "type": "NOT NULL",
+                            "definition": "NOT NULL"
+                        }
+                    ]
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    "Land"
+                ],
+                [
+                    2,
+                    "Water"
+                ],
+                [
+                    3,
+                    "Fly"
+                ]
+            ]
+        }
+    ]
+}
