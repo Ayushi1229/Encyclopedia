@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export 'package:flutter/material.dart';
 export 'package:get/get.dart';
 export 'package:encyclopedia/favouritepage/fav_view.dart';
@@ -16,3 +17,12 @@ export 'package:encyclopedia/controller/kingdom_controller.dart';
 export 'package:encyclopedia/view/category_grid_view.dart';
 export 'package:encyclopedia/firstpage/firstpage_view.dart';
 
+=======
+export 'package:flutter/material.dart';
+export 'package:get/get.dart';
+export 'package:encyclopedia/favouritepage/fav_view.dart';
+export 'package:encyclopedia/utils/strings.dart';
+
+export '../menu/about.dart';
+export '../menu/setting.dart';
+>>>>>>> f741e03f73676f655f95f21779de9579bb44816f
