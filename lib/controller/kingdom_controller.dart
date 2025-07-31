@@ -1,3 +1,6 @@
+import '../model/continent_model.dart';
+import '../model/food_type_model.dart';
+import '../model/type_model.dart';
 import '../utils/import_export.dart';
 
 class KingdomController extends GetxController {
@@ -7,6 +10,11 @@ class KingdomController extends GetxController {
   RxList<BirdModel> birdList = <BirdModel>[].obs;
   RxList<InsectModel> insectList = <InsectModel>[].obs;
   RxList<ReptileModel> reptileList = <ReptileModel>[].obs;
+
+  List<dynamic> continentList = [];
+  List<dynamic> foodList = [];
+  List<dynamic> typeList = [];
+
 
   @override
   void onInit() {
@@ -38,7 +46,28 @@ class KingdomController extends GetxController {
         case 'Reptile':
           reptileRows = table['rows'];
           break;
+        case 'Continent':
+          continentList = table['rows'];
+          break;
+        case 'FoodType':
+          foodList = table['rows'];
+          break;
+        case 'Type':
+          typeList = table['rows'];
+          break;
       }
+    }
+
+    String getContinentName(int id) {
+      return continentList.firstWhere((e) => e[0] == id, orElse: () => [id, 'Unknown'])[1];
+    }
+
+    String getFoodName(int id) {
+      return foodList.firstWhere((e) => e[0] == id, orElse: () => [id, 'Unknown'])[1];
+    }
+
+    String getTypeName(int id) {
+      return typeList.firstWhere((e) => e[0] == id, orElse: () => [id, 'Unknown'])[1];
     }
 
     animalList.value = (animalRows ?? []).map((row) {
@@ -46,12 +75,15 @@ class KingdomController extends GetxController {
         kingdomId: row[0],
         animalId: row[1],
         name: row[2],
-        // continentId: row[3],
-        // typeId: row[4],
-        // foodId: row[5],
+        continentId: row[3],
+        typeId: row[4],
+        foodId: row[5],
         // sound: row[6],
         // pVoice: row[7],
         photo: row[8],
+        continentName: getContinentName(row[3]),
+        typeName: getTypeName(row[4]),
+        foodName: getFoodName(row[5]),
       );
     }).toList();
 
@@ -60,12 +92,15 @@ class KingdomController extends GetxController {
         kingdomId: row[0],
         birdId: row[1],
         name: row[2],
-        // continentId: row[3],
-        // typeId: row[4],
-        // foodId: row[5],
+        continentId: row[3],
+        typeId: row[4],
+        foodId: row[5],
         // sound: row[6],
         // pVoice: row[7],
         photo: row[8],
+        continentName: getContinentName(row[3]),
+        typeName: getTypeName(row[4]),
+        foodName: getFoodName(row[5]),
       );
     }).toList();
 
@@ -74,12 +109,15 @@ class KingdomController extends GetxController {
         kingdomId: row[0],
         insectId: row[1],
         name: row[2],
-        // continentId: row[3],
-        // typeId: row[4],
-        // foodId: row[5],
+        continentId: row[3],
+        typeId: row[4],
+        foodId: row[5],
         // sound: row[6],
         // pVoice: row[7],
         photo: row[8],
+        continentName: getContinentName(row[3]),
+        typeName: getTypeName(row[4]),
+        foodName: getFoodName(row[5]),
       );
     }).toList();
 
@@ -88,12 +126,15 @@ class KingdomController extends GetxController {
         kingdomId: row[0],
         reptileId: row[1],
         name: row[2],
-        // continentId: row[3],
-        // typeId: row[4],
-        // foodId: row[5],
+        continentId: row[3],
+        typeId: row[4],
+        foodId: row[5],
         // sound: row[6],
         // pVoice: row[7],
         photo: row[8],
+        continentName: getContinentName(row[3]),
+        typeName: getTypeName(row[4]),
+        foodName: getFoodName(row[5]),
       );
     }).toList();
   }

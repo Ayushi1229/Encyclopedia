@@ -101,15 +101,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       padding: const EdgeInsets.all(10),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 0.8,
+        crossAxisSpacing: 3,
+        mainAxisSpacing: 3,
+        childAspectRatio: 0.65,
       ),
       itemBuilder: (context, i) {
-        final item = items[i];
+        dynamic item = items[i];
         return GestureDetector(
             onTap: () {
-              Get.to(() => DetailScreen(name: item.name, photo: item.photo));
+              Get.to(() => DetailScreen(item: item,));
             },
         child:  Card(
           elevation: 5,

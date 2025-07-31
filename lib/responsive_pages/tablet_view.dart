@@ -107,9 +107,9 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
         final item = items[i];
         return GestureDetector(
             onTap: () {
-              Get.to(() => DetailScreen(
-                name: item.name,
-                photo: item.photo,
+              Get.to(() => DetailScreen(item: item,
+                // name: item.name,
+                // photo: item.photo,
                 // continent: item.continent,
                 // foodType: item.foodType,
                 // type: item.type,
