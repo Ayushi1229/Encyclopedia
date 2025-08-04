@@ -48,7 +48,7 @@ class _MobileViewState extends State<MobileView> with SingleTickerProviderStateM
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.star_border),
+            icon: const Icon(Icons.favorite_border),
             onPressed: () => Get.to(() => const FavView()),
           ),
           PopupMenuButton<String>(

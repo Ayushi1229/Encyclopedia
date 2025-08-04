@@ -48,7 +48,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.star_border),
+            icon: const Icon(Icons.favorite_border),
             onPressed: () => Get.to(() => const FavView()),
           ),
           PopupMenuButton<String>(

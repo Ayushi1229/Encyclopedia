@@ -1,64 +1,32 @@
-import 'package:encyclopedia/model/animal_model.dart';
-import 'package:encyclopedia/model/bird_model.dart';
-import 'package:encyclopedia/model/reptile_model.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../controller/kingdom_controller.dart';
-import '../db/db_helper.dart';
 import 'package:get/get.dart';
 
-import '../model/insect_model.dart';
+import '../controller/kingdom_controller.dart';
+import '../db/db_helper.dart';
 
 class DetailScreen extends StatelessWidget {
-  final dynamic item; // AnimalModel, BirdModel, etc.
+  final dynamic item;
+  final KingdomController kingdomController = Get.find();
 
   DetailScreen({super.key, required this.item});
 
-  KingdomController kingdomController = Get.find();
-
   Future<Map<String, String>> fetchDetails() async {
     final db = DBHelper();
-    print('Continent ID: ${item.continentId}');
-    print('Food ID: ${item.foodId}');
-    print('Type ID: ${item.typeId}');
-
-    // print('Continent name: ${item.continentName}');
     String continentName = "Not found";
     String foodName = "Not found";
-    String TypeName = "Not found";
+    String typeName = "Not found";
 
     try {
-      List<AnimalModel> animalList = kingdomController.animalList;
-      print(animalList);
-
-      List<BirdModel> birdList = kingdomController.birdList;
-      print(birdList);
-
-      List<InsectModel> insectList = kingdomController.insectList;
-      print(insectList);
-
-      List<ReptileModel> reptileList = kingdomController.reptileList;
-      print(reptileList);
-
-      // if (item.continentId != null) {
-      //   continentName = await db.getContinentNameById(item.continentId) ?? "Not found";
-      //   print("Continent name: $continentName");
-      // }
-      // if (item.foodId != null) {
-      //   foodName = await db.getFoodTypeNameById(item.foodId) ?? "Not found";
-      //   print("Food name: $foodName");
-      // }
-      // if (item.typeId != null) {
-      //   TypeName = await db.getModeTypeNameById(item.typeId) ?? "Not found";
-      //   print("Type name: $TypeName");
-      // }
+      // DB logic can be added here
     } catch (e) {
-      print("Error fetching details: $e");
+      print("Error: $e");
     }
 
     return {
       'continentName': continentName,
       'foodName': foodName,
-      'typeName': TypeName,
+      'typeName': typeName,
     };
   }
 
@@ -67,80 +35,107 @@ class DetailScreen extends StatelessWidget {
     final String continentName = item.continentName;
     final String foodName = item.foodName;
     final String typeName = item.typeName;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(item?.name ?? 'Unknown'),
-        backgroundColor: Colors.deepOrange,
-        foregroundColor: Colors.white,
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Stack(
           children: [
-            // Photo Section
-            Container(
-              height: 250,
-              width: double.infinity,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-              child: Image.asset(
-                item?.photo ?? '',
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Center(
-                    child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
-                  );
-                },
+            // 📸 Background Image + Clipper
+            ClipPath(
+              clipper: WaveClipper(),
+              child: SizedBox(
+                height: 450,
+                width: double.infinity,
+                child: Image.asset(
+                  item.photo ?? '',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                  const Center(child: Icon(Icons.broken_image, size: 50)),
+                ),
               ),
             ),
-            const SizedBox(height: 20),
-            // Action Buttons
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                actionButton(Icons.volume_up_rounded, Colors.deepOrange),
-                actionButton(Icons.favorite_border, Colors.redAccent),
-                actionButton(Icons.spatial_audio, Colors.blueAccent),
-              ],
+
+            // 🔙 Back Button
+            Positioned(
+              top: 16,
+              left: 16,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.deepOrange),
+                  onPressed: () => Get.back(),
+                ),
+              ),
             ),
-            const SizedBox(height: 20),
-            // Async Details
-            FutureBuilder<Map<String, String>>(
-              future: fetchDetails(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError || !snapshot.hasData) {
-                  return const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text("Error loading details"),
-                  );
-                } else {
-                  final data = snapshot.data!;
-                  print("data : $data");
-                  return Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // detailRow("Continent", data['continentName']),
-                          Text("Continent: $continentName"),
-                          Text("Food: $foodName"),
-                          Text("Type: $typeName"),
-                          // detailRow("Continent, $continentName"),
-                          // detailRow("Food Type", data['foodName']),
-                          // detailRow("Mode Type", data['typeName']),
-                        ],
+
+            // 📋 Scrollable Content with top padding
+            Padding(
+              padding: const EdgeInsets.only(top: 430),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                child: Column(
+                  children: [
+                    // 🐾 Name
+                    Text(
+                      item.name ?? 'Unknown',
+                      style: const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepOrange,
                       ),
                     ),
-                  );
-                }
-              },
+                    const SizedBox(height: 20),
+
+                    // 🎧 Buttons
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        actionButton(Icons.volume_up, Colors.orange),
+                        actionButton(Icons.favorite_border, Colors.pink),
+                        actionButton(Icons.spatial_audio, Colors.blue),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+
+                    // 📄 Details Card
+                    FutureBuilder<Map<String, String>>(
+                      future: fetchDetails(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        }
+
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.6),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.orangeAccent.withOpacity(0.3),
+                                  width: 1,
+                                ),
+                              ),
+                              child: Column(
+                                children: [
+                                  detailRow(Icons.public, "Continent", continentName),
+                                  detailRow(Icons.restaurant, "Food Type", foodName),
+                                  detailRow(Icons.landscape, "Mode Type", typeName),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -148,25 +143,68 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
+
   Widget actionButton(IconData icon, Color color) {
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
-        padding: const EdgeInsets.all(20),
         backgroundColor: color,
+        elevation: 6,
+        padding: const EdgeInsets.all(20),
       ),
-      child: Icon(icon, size: 30, color: Colors.white),
+      child: Icon(icon, size: 28, color: Colors.white),
     );
   }
 
-  Widget detailRow(String title, String? value) {
+  Widget detailRow(IconData icon, String title, String? value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Text(
-        "$title: ${value ?? 'N/A'}",
-        style: const TextStyle(fontSize: 16),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.deepOrange),
+          const SizedBox(width: 12),
+          Text(
+            "$title: ",
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          ),
+          Expanded(
+            child: Text(
+              value ?? 'N/A',
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
       ),
     );
   }
+}
+
+// 🌊 Custom Wave Clipper
+class WaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+
+    path.lineTo(0, size.height - 60);
+
+    var firstControlPoint = Offset(size.width / 4, size.height);
+    var firstEndPoint = Offset(size.width / 2, size.height - 60);
+
+    var secondControlPoint = Offset(3 * size.width / 4, size.height - 120);
+    var secondEndPoint = Offset(size.width, size.height - 60);
+
+    path.quadraticBezierTo(
+        firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
+    path.quadraticBezierTo(
+        secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
+
+    path.lineTo(size.width, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
