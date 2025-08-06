@@ -49,7 +49,7 @@ class _MobileViewState extends State<MobileView> with SingleTickerProviderStateM
         actions: [
           IconButton(
             icon: const Icon(Icons.favorite_border),
-            onPressed: () => Get.to(() => const FavView()),
+            onPressed: () => Get.to(() =>  FavView()),
           ),
           PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert),
@@ -99,9 +99,9 @@ class _MobileViewState extends State<MobileView> with SingleTickerProviderStateM
       padding: const EdgeInsets.all(10),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 0.8,
+        crossAxisSpacing: 1,
+        mainAxisSpacing: 1,
+        childAspectRatio: 0.6,
       ),
       itemBuilder: (context, i) {
         final item = items[i];
@@ -136,7 +136,7 @@ class _MobileViewState extends State<MobileView> with SingleTickerProviderStateM
                     },
                   ),
                   Container(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.bottomCenter,
                     padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(

@@ -1,15 +1,36 @@
 import 'dart:ui';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/kingdom_controller.dart';
 import '../db/db_helper.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final dynamic item;
-  final KingdomController kingdomController = Get.find();
 
-  DetailScreen({super.key, required this.item});
+  const DetailScreen({super.key, required this.item});
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  final KingdomController controller = Get.find();
+  late final AudioPlayer player;
+
+  @override
+  void initState() {
+    super.initState();
+    player = AudioPlayer();
+  }
+
+  @override
+  void dispose() {
+    player.stop(); // 🛑 Stop sound
+    player.dispose(); // 🔁 Release resources
+    super.dispose();
+  }
 
   Future<Map<String, String>> fetchDetails() async {
     final db = DBHelper();
@@ -17,12 +38,7 @@ class DetailScreen extends StatelessWidget {
     String foodName = "Not found";
     String typeName = "Not found";
 
-    try {
-      // DB logic can be added here
-    } catch (e) {
-      print("Error: $e");
-    }
-
+    // You can implement real DB logic here
     return {
       'continentName': continentName,
       'foodName': foodName,
@@ -32,16 +48,17 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final item = widget.item;
     final String continentName = item.continentName;
     final String foodName = item.foodName;
     final String typeName = item.typeName;
+    final String? sound = item.sound;
 
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: [
-            // 📸 Background Image + Clipper
             ClipPath(
               clipper: WaveClipper(),
               child: SizedBox(
@@ -56,7 +73,7 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
 
-            // 🔙 Back Button
+            // Back button
             Positioned(
               top: 16,
               left: 16,
@@ -69,14 +86,12 @@ class DetailScreen extends StatelessWidget {
               ),
             ),
 
-            // 📋 Scrollable Content with top padding
             Padding(
               padding: const EdgeInsets.only(top: 430),
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
                 child: Column(
                   children: [
-                    // 🐾 Name
                     Text(
                       item.name ?? 'Unknown',
                       style: const TextStyle(
@@ -87,18 +102,40 @@ class DetailScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    // 🎧 Buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        actionButton(Icons.volume_up, Colors.orange),
-                        actionButton(Icons.favorite_border, Colors.pink),
-                        actionButton(Icons.spatial_audio, Colors.blue),
+                        actionButton(Icons.volume_up, Colors.orange, () async {
+                          if (sound != null && sound.isNotEmpty) {
+                            await player.stop(); // stop previous sound
+                            await player.play(AssetSource('sound/$sound'));
+                          } else {
+                            Get.snackbar("No Sound", "This animal has no sound.");
+                          }
+                        }),
+
+                        Obx(() {
+                          final isFav = controller.isFavorite(item);
+                          return actionButton(
+                            isFav ? Icons.favorite : Icons.favorite_border,
+                            Colors.pink,
+                                () {
+                              controller.toggleFavorite(item);
+                            },
+                          );
+                        }),
+
+                        actionButton(Icons.spatial_audio, Colors.blue, () async {
+                          if (sound != null && sound.isNotEmpty) {
+                            await player.stop();
+                            await player.play(AssetSource('sound/$sound'));
+                          }
+                        }),
                       ],
                     ),
+
                     const SizedBox(height: 30),
 
-                    // 📄 Details Card
                     FutureBuilder<Map<String, String>>(
                       future: fetchDetails(),
                       builder: (context, snapshot) {
@@ -143,10 +180,9 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
-
-  Widget actionButton(IconData icon, Color color) {
+  Widget actionButton(IconData icon, Color color, VoidCallback onPressed) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         backgroundColor: color,
@@ -166,12 +202,12 @@ class DetailScreen extends StatelessWidget {
           const SizedBox(width: 12),
           Text(
             "$title: ",
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           ),
           Expanded(
             child: Text(
               value ?? 'N/A',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
             ),
           ),
         ],
@@ -180,28 +216,22 @@ class DetailScreen extends StatelessWidget {
   }
 }
 
-// 🌊 Custom Wave Clipper
+// 🌊 Wave Clipper
 class WaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = Path();
-
     path.lineTo(0, size.height - 60);
-
     var firstControlPoint = Offset(size.width / 4, size.height);
     var firstEndPoint = Offset(size.width / 2, size.height - 60);
-
     var secondControlPoint = Offset(3 * size.width / 4, size.height - 120);
     var secondEndPoint = Offset(size.width, size.height - 60);
-
     path.quadraticBezierTo(
         firstControlPoint.dx, firstControlPoint.dy, firstEndPoint.dx, firstEndPoint.dy);
     path.quadraticBezierTo(
         secondControlPoint.dx, secondControlPoint.dy, secondEndPoint.dx, secondEndPoint.dy);
-
     path.lineTo(size.width, 0);
     path.close();
-
     return path;
   }
 

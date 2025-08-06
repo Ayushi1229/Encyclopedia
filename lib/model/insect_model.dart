@@ -9,6 +9,7 @@ class InsectModel {
   final String continentName;
   final String typeName;
   final String foodName;
+  // final String sound;
 
   InsectModel({
     required this.insectId,
@@ -20,25 +21,25 @@ class InsectModel {
     required this.typeId,
     required this.continentName,
     required this.foodName,
-    required this.typeName
+    required this.typeName,
+    // required this.sound,
   });
-
 
   factory InsectModel.fromJson(Map<String, dynamic> json) {
     return InsectModel(
-      insectId: json['insectId'] ?? 0,
-      name: json['name'] ?? '',
-      photo: json['photo'] ?? '',
-      kingdomId: json['kingdomId'] ?? 0,
-      continentId: json['continentId'] ?? 0,
-      foodId: json['foodId'] ?? 0,
-      typeId: json['typeId'] ?? 0,
+        insectId: json['insectId'] ?? 0,
+        name: json['name'] ?? '',
+        photo: json['photo'] ?? '',
+        kingdomId: json['kingdomId'] ?? 0,
+        continentId: json['continentId'] ?? 0,
+        foodId: json['foodId'] ?? 0,
+        typeId: json['typeId'] ?? 0,
         continentName: json['continentName'] ?? 0,
         foodName: json['foodName'] ?? 0,
-        typeName: json['typeName'] ?? 0
+        typeName: json['typeName'] ?? 0,
+        // sound: json['sound'] ?? 0
     );
   }
-
 
   factory InsectModel.fromMap(Map<String, dynamic> map) {
     return InsectModel(
@@ -49,9 +50,10 @@ class InsectModel {
       continentId: map['continentId'],
       foodId: map['foodId'],
       typeId: map['typeId'],
-        continentName: map['continentName'],
-        typeName: map['typeName'],
-        foodName: map['foodName']
+      continentName: map['continentName'],
+      typeName: map['typeName'],
+      foodName: map['foodName'],
+      // sound: map['sound'],
     );
   }
 
@@ -66,9 +68,11 @@ class InsectModel {
       'typeId':typeId,
       'continentName' : continentName,
       'typeName' : typeName,
-      'foodName' : foodName
+      'foodName' : foodName,
+      // 'sound' : sound
     };
   }
+
   @override
   String toString() {
     return '''
@@ -82,7 +86,7 @@ InsectModel {
   typeId: $typeId,
   continentName : $continentName,
   typeName : $typeName,
-  foodName : $foodName
+  foodName : $foodName,
 }''';
   }
 

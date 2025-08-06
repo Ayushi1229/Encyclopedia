@@ -5,10 +5,12 @@ import '../utils/import_export.dart';
 
 class KingdomController extends GetxController {
   var selectedTabIndex = 0.obs;
+  var favoriteList = <dynamic>[].obs;
 
   RxList<AnimalModel> animalList = <AnimalModel>[].obs;
   RxList<BirdModel> birdList = <BirdModel>[].obs;
   RxList<InsectModel> insectList = <InsectModel>[].obs;
+
   RxList<ReptileModel> reptileList = <ReptileModel>[].obs;
 
   List<dynamic> continentList = [];
@@ -25,10 +27,41 @@ class KingdomController extends GetxController {
   void changeTab(int index) {
     selectedTabIndex.value = index;
   }
+
+  void toggleFavorite(dynamic item) {
+    if (isFavorite(item)) {
+      favoriteList.remove(item);
+      Get.snackbar(
+        "Removed",
+        "${item.name} removed from favorites",
+        backgroundColor: Colors.black.withOpacity(0.8), // Less transparent
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 2),
+      );
+    } else {
+      favoriteList.add(item);
+      Get.snackbar(
+        "Added",
+        "${item.name} added to favorites",
+        backgroundColor: Colors.black.withOpacity(0.8), // Less transparent
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 2),
+      );
+    }
+  }
+
+
+  bool isFavorite(dynamic item) {
+    return favoriteList.any((element) => element.name == item.name);
+  }
+
   Future<void> loadJsonData() async {
     final String response = await rootBundle.loadString('assets/json/Flutter.json');
     final Map<String, dynamic> data = json.decode(response);
     final List<dynamic> tables = data['objects'] ?? [];
+
 
     List<dynamic>? animalRows, birdRows, insectRows, reptileRows;
 
@@ -58,6 +91,7 @@ class KingdomController extends GetxController {
       }
     }
 
+
     String getContinentName(int id) {
       return continentList.firstWhere((e) => e[0] == id, orElse: () => [id, 'Unknown'])[1];
     }
@@ -78,7 +112,7 @@ class KingdomController extends GetxController {
         continentId: row[3],
         typeId: row[4],
         foodId: row[5],
-        // sound: row[6],
+        sound: row[6],
         // pVoice: row[7],
         photo: row[8],
         continentName: getContinentName(row[3]),
@@ -95,7 +129,7 @@ class KingdomController extends GetxController {
         continentId: row[3],
         typeId: row[4],
         foodId: row[5],
-        // sound: row[6],
+        sound: row[6],
         // pVoice: row[7],
         photo: row[8],
         continentName: getContinentName(row[3]),
@@ -129,7 +163,7 @@ class KingdomController extends GetxController {
         continentId: row[3],
         typeId: row[4],
         foodId: row[5],
-        // sound: row[6],
+        sound: row[6],
         // pVoice: row[7],
         photo: row[8],
         continentName: getContinentName(row[3]),

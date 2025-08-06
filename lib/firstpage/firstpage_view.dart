@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           actions: [
             IconButton(
               icon: const Icon(Icons.favorite_border),
-              onPressed: () => Get.to(() => const FavView()),
+              onPressed: () => Get.to(() =>  FavView()),
             ),
             PopupMenuButton<String>(
               icon: const Icon(Icons.more_vert),
@@ -61,7 +61,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   Get.to(() => const Setting());
                 }
               },
-              itemBuilder: (context) => const [
+              itemBuilder: (context) =>
+              const [
                 PopupMenuItem(value: 'about', child: Text('About')),
                 PopupMenuItem(value: 'setting', child: Text('Setting')),
               ],
@@ -70,13 +71,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           bottom: TabBar(
             controller: _tabController,
             unselectedLabelColor: Colors.white54,
-            labelStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            labelStyle: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white),
             tabs: const [
               Tab(text: 'ANIMAL'),
               Tab(text: 'BIRD'),
               Tab(text: 'INSECT'),
               Tab(text: 'REPTILE'),
             ],
+
             onTap: (index) {
               controller.changeTab(index);
             },
@@ -98,76 +101,83 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget buildGrid(List<dynamic> items) {
     return GridView.builder(
       itemCount: items.length,
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.zero, // Removed padding
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        crossAxisSpacing: 3,
-        mainAxisSpacing: 3,
+        crossAxisSpacing: 8, // Removed cross spacing
+        mainAxisSpacing: 8, // Removed main spacing
         childAspectRatio: 0.65,
       ),
       itemBuilder: (context, i) {
         dynamic item = items[i];
         return GestureDetector(
-            onTap: () {
-              Get.to(() => DetailScreen(item: item,));
-            },
-        child:  Card(
-          elevation: 5,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                Image.asset(
-                  item.photo,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Center(
-                      child: Icon(Icons.broken_image, size: 48, color: Colors.grey),
-                    );
-                  },
-                ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.center,
-                      colors: [
-                        Colors.black.withOpacity(0.6),
-                        Colors.transparent,
-                      ],
+          onTap: () {
+            Get.to(() => DetailScreen(item: item));
+          },
+          child: Card(
+            elevation: 5,
+            color: Colors.white,
+            margin: EdgeInsets.zero,
+            // Ensures no extra margin
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    item.photo,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Icon(Icons.broken_image, size: 48,
+                            color: Colors.grey),
+                      );
+                    },
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.center,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withOpacity(0.6),
+                          ],
+                        ),
+                      ),
+                      child: Text(
+                        item.name,
+                        style: const TextStyle(
+                          fontFamily: 'Arial',
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 4,
+                              color: Colors.black45,
+                              offset: Offset(0, 1),
+                            )
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-                  child: Text(
-                    item.name,
-                    style: const TextStyle(
-                      fontFamily: 'Arial',
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      shadows: [
-                        Shadow(
-                          blurRadius: 4,
-                          color: Colors.black45,
-                          offset: Offset(0, 1),
-                        )
-                      ],
-                    ),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ));
+        );
       },
     );
   }

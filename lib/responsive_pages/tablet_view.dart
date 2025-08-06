@@ -49,7 +49,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
         actions: [
           IconButton(
             icon: const Icon(Icons.favorite_border),
-            onPressed: () => Get.to(() => const FavView()),
+            onPressed: () => Get.to(() =>  FavView()),
           ),
           PopupMenuButton<String>(
             icon: const Icon(Icons.more_vert),
@@ -99,9 +99,9 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
       padding: const EdgeInsets.all(10),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 0.8,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+        childAspectRatio: 0.7,
       ),
       itemBuilder: (context, i) {
         final item = items[i];
@@ -138,7 +138,7 @@ class _TabViewState extends State<TabView> with SingleTickerProviderStateMixin {
                       },
                     ),
                     Container(
-                      alignment: Alignment.topCenter,
+                      alignment: Alignment.bottomCenter,
                       padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(

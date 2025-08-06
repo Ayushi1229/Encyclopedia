@@ -9,6 +9,7 @@ class ReptileModel {
   final String continentName;
   final String typeName;
   final String foodName;
+  final String sound;
 
   ReptileModel({
     required this.reptileId,
@@ -20,7 +21,9 @@ class ReptileModel {
     required this.typeId,
     required this.continentName,
     required this.foodName,
-    required this.typeName
+    required this.typeName,
+    required this.sound,
+
   });
 
 
@@ -35,7 +38,8 @@ class ReptileModel {
       typeId: json['typeId'] ?? 0,
         continentName: json['continentName'] ?? 0,
         foodName: json['foodName'] ?? 0,
-        typeName: json['typeName'] ?? 0
+        typeName: json['typeName'] ?? 0,
+        sound: json['sound'] ?? 0
     );
   }
 
@@ -50,7 +54,8 @@ class ReptileModel {
       typeId: map['typeId'],
         continentName: map['continentName'],
         typeName: map['typeName'],
-        foodName: map['foodName']
+        foodName: map['foodName'],
+      sound: map['sound'],
     );
   }
 
@@ -65,7 +70,8 @@ class ReptileModel {
       'typeId':typeId,
       'continentName' : continentName,
       'typeName' : typeName,
-      'foodName' : foodName
+      'foodName' : foodName,
+      'sound' : sound
     };
   }
   @override
@@ -81,7 +87,9 @@ ReptileModel {
   typeId: $typeId,
   continentName : $continentName,
   typeName : $typeName,
-  foodName : $foodName
+  foodName : $foodName,
+    sound : $sound
+
 }''';
   }
 

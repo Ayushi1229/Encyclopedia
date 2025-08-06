@@ -9,7 +9,7 @@ class AnimalModel {
   final String continentName;
   final String typeName;
   final String foodName;
-
+  final String sound;
 
   AnimalModel({
     required this.animalId,
@@ -21,7 +21,8 @@ class AnimalModel {
     required this.typeId,
     required this.continentName,
     required this.foodName,
-    required this.typeName
+    required this.typeName,
+    required this.sound,
   });
 
   factory AnimalModel.fromJson(Map<String, dynamic> json) {
@@ -35,7 +36,8 @@ class AnimalModel {
       typeId: json['typeId'] ?? 0,
       continentName: json['continentName'] ?? 0,
       foodName: json['foodName'] ?? 0,
-      typeName: json['typeName'] ?? 0
+      typeName: json['typeName'] ?? 0,
+      sound: json['sound'] ?? 0
     );
   }
 
@@ -50,7 +52,8 @@ class AnimalModel {
       typeId: map['typeId'],
       continentName: map['continentName'],
       typeName: map['typeName'],
-      foodName: map['foodName']
+      foodName: map['foodName'],
+      sound: map['sound'],
     );
   }
 
@@ -65,7 +68,8 @@ class AnimalModel {
       'typeId':typeId,
       'continentName' : continentName,
       'typeName' : typeName,
-      'foodName' : foodName
+      'foodName' : foodName,
+      'sound' : sound
     };
   }
 
@@ -82,7 +86,8 @@ AnimalModel {
   typeId: $typeId,
   continentName : $continentName,
   typeName : $typeName,
-  foodName : $foodName
+  foodName : $foodName,
+  sound : $sound
 }''';
   }
 

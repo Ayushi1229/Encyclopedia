@@ -1108,7 +1108,7 @@
                     3,
                     1,
                     2,
-                    "Alligator.mp3",
+                    "Alligator.wav",
                     null,
                     "Alligator.jpg"
                 ],
@@ -1119,7 +1119,7 @@
                     1,
                     1,
                     2,
-                    "Cobra.mp3",
+                    "Cobra.wav",
                     null,
                     "Cobra.jpg"
                 ],
@@ -1130,7 +1130,7 @@
                     4,
                     1,
                     3,
-                    "Frog.mp3",
+                    "Frog.wav",
                     null,
                     "Frog.jpg"
                 ],
@@ -1152,7 +1152,7 @@
                     1,
                     1,
                     2,
-                    "Python.mp3",
+                    "Python.wav",
                     null,
                     "Python.jpg"
                 ],
@@ -1163,7 +1163,7 @@
                     3,
                     1,
                     2,
-                    "Rattlesnake.mp3",
+                    "Rattlesnake.wav",
                     null,
                     "Rattlesnake.jpg"
                 ]

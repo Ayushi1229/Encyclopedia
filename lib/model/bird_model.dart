@@ -9,6 +9,7 @@ class BirdModel {
   final String continentName;
   final String typeName;
   final String foodName;
+  final String sound;
 
   BirdModel({
     required this.birdId,
@@ -20,7 +21,9 @@ class BirdModel {
     required this.typeId,
     required this.continentName,
     required this.foodName,
-    required this.typeName
+    required this.typeName,
+    required this.sound,
+
   });
 
 
@@ -36,6 +39,7 @@ class BirdModel {
         continentName: json['continentName'] ?? 0,
         foodName: json['foodName'] ?? 0,
         typeName: json['typeName'] ?? 0,
+        sound: json['sound'] ?? 0
 
     );
   }
@@ -52,7 +56,9 @@ class BirdModel {
       typeId: map['typeId'],
         continentName: map['continentName'],
         typeName: map['typeName'],
-        foodName: map['foodName']
+        foodName: map['foodName'],
+      sound: map['sound'],
+
     );
   }
 
@@ -67,7 +73,8 @@ class BirdModel {
       'typeId':typeId,
       'continentName' : continentName,
       'typeName' : typeName,
-      'foodName' : foodName
+      'foodName' : foodName,
+      'sound' : sound
     };
   }
 
@@ -84,7 +91,9 @@ BirdModel {
   typeId: $typeId,
   continentName : $continentName,
   typeName : $typeName,
-  foodName : $foodName
+  foodName : $foodName,
+    sound : $sound
+
 }''';
 }
 

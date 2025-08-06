@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  audioplayers: ^5.2.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -37,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   get:
   sqflite: ^2.3.2+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,6 +65,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/sound/
 #    - assets/images/American Robin.jpg
 #    - assets/images/Andean Condor.jpg
 #    - assets/images/Deer.jpg
