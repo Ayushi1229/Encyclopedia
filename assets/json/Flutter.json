@@ -8,7 +8,7 @@
             "name": "Animal",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE Animal (KingdomId INTEGER REFERENCES Kingdom (KingdomId) NOT NULL, AnimalId INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL, Name varchar (100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar (100) UNIQUE, PVoice varchar (100) UNIQUE, Photo varchar (100) UNIQUE)",
+            "ddl": "CREATE TABLE Animal (KingdomId INTEGER REFERENCES Kingdom (KingdomId) NOT NULL, AnimalId INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL, Name varchar (100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar (100) UNIQUE, Voice varchar (100) UNIQUE, Photo varchar (100) UNIQUE)",
             "columns": [
                 {
                     "name": "KingdomId",
@@ -109,7 +109,7 @@
                     ]
                 },
                 {
-                    "name": "PVoice",
+                    "name": "Voice",
                     "type": "varchar",
                     "constraints": [
                         {
@@ -133,46 +133,46 @@
                 [
                     1,
                     1,
-                    "Lion",
+                    "Asiatic Lion",
                     1,
                     1,
                     2,
-                    "Lion.mp3",
-                    null,
-                    "assets/images/Lion.jpg"
+                    "Asiatic Lion S.m4a",
+                    "Asiatic Lion V.wav",
+                    "assets/images/Asiatic Lion.jpg"
                 ],
                 [
                     1,
                     2,
-                    "Tiger",
+                    "Bengal Tiger",
                     1,
                     1,
                     2,
-                    "Tiger.mp3",
-                    null,
-                    "assets/images/Tiger.jpg"
+                    "Bengal Tiger S.m4a",
+                    "Bengal Tiger V.wav",
+                    "assets/images/Bengal Tiger.jpg"
                 ],
                 [
                     1,
                     3,
-                    "Elephant",
+                    "African Elephant",
                     1,
                     1,
                     1,
-                    "Elephant.mp3",
-                    null,
-                    "assets/images/Elephant.jpg"
+                    "African Elephant S.m4a",
+                    "African Elephant V.wav",
+                    "assets/images/African Elephant.jpg"
                 ],
                 [
                     1,
                     4,
-                    "African Deer",
+                    "Sika Deer",
                     2,
                     1,
                     1,
-                    "African Deer.mp3",
-                    null,
-                    "assets/images/Deer.jpg"
+                    "Sika Deer S.m4a",
+                    "African Deer V.wav",
+                    "assets/images/Sika Deer.jpg"
                 ],
                 [
                     1,
@@ -181,8 +181,8 @@
                     2,
                     1,
                     1,
-                    "Giraffe.mp3",
-                    null,
+                    "Giraffe S.m4a",
+                    "Giraffe V.wav",
                     "assets/images/Giraffe.jpg"
                 ],
                 [
@@ -192,8 +192,8 @@
                     3,
                     1,
                     3,
-                    "Grizzly Bear.mp3",
-                    null,
+                    "Grizzly Bear S.m4a",
+                    "Grizzly Bear V.wav",
                     "assets/images/Grizzly Bear.jpg"
                 ],
                 [
@@ -203,8 +203,8 @@
                     5,
                     1,
                     3,
-                    "Hedgehog.mp3",
-                    null,
+                    "Hedgehog S.m4a",
+                    "Hedgehog V.wav",
                     "assets/images/Hedgehog.jpg"
                 ],
                 [
@@ -214,8 +214,8 @@
                     4,
                     1,
                     2,
-                    "Jaguar.mp3",
-                    null,
+                    "Jaguar S.m4a",
+                    "Jaguar V.wav",
                     "assets/images/Jaguar.jpg"
                 ],
                 [
@@ -225,8 +225,8 @@
                     6,
                     1,
                     1,
-                    "Kangaroo.mp3",
-                    null,
+                    "Kangaroo S.m4a",
+                    "Kangaroo V.wav",
                     "assets/images/Kangaroo.png"
                 ],
                 [
@@ -236,8 +236,8 @@
                     6,
                     1,
                     1,
-                    "Koala Bear.mp3",
-                    null,
+                    "Koala Bear S.m4a",
+                    "Koala Bear V.wav",
                     "assets/images/Koala Bear.jpg"
                 ],
                 [
@@ -247,8 +247,8 @@
                     2,
                     1,
                     3,
-                    "Meerkat.mp3",
-                    null,
+                    "Meerkat S.m4a",
+                    "Meerkat V.wav",
                     "assets/images/Meerkat.jpg"
                 ],
                 [
@@ -258,8 +258,8 @@
                     1,
                     1,
                     2,
-                    "Snow Leopard.mp3",
-                    null,
+                    "Snow Leopard S.m4a",
+                    "Snow Leopard V.wav",
                     "assets/images/Snow Leopard.jpg"
                 ],
                 [
@@ -269,8 +269,8 @@
                     3,
                     1,
                     3,
-                    "Wolverine.mp3",
-                    null,
+                    "Wolverine S.m4a",
+                    "Wolverine V.wav",
                     "assets/images/Wolverine.jpg"
                 ],
                 [
@@ -280,8 +280,8 @@
                     2,
                     1,
                     1,
-                    "Zebra.mp3",
-                    null,
+                    "Zebra S.m4a",
+                    "Zebra V.wav",
                     "assets/images/Zebra.jpg"
                 ]
             ]
@@ -292,7 +292,7 @@
             "name": "Bird",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE Bird (KingdomId INTEGER REFERENCES Kingdom (KingdomId) NOT NULL, BirdId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name varchar (100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar (100) UNIQUE, PVoice varchar (100) UNIQUE, Photo varchar (100) UNIQUE)",
+            "ddl": "CREATE TABLE Bird (KingdomId INTEGER REFERENCES Kingdom (KingdomId) NOT NULL, BirdId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name varchar (100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar (100) UNIQUE, Voice varchar (100) UNIQUE, Photo varchar (100) UNIQUE)",
             "columns": [
                 {
                     "name": "KingdomId",
@@ -393,7 +393,7 @@
                     ]
                 },
                 {
-                    "name": "PVoice",
+                    "name": "Voice",
                     "type": "varchar",
                     "constraints": [
                         {
@@ -421,8 +421,8 @@
                     6,
                     1,
                     1,
-                    "Ostrich.wav",
-                    null,
+                    "Ostrich S.m4a",
+                    "Ostrich V.wav",
                     "assets/images/Ostrich.jpg"
                 ],
                 [
@@ -432,8 +432,8 @@
                     2,
                     3,
                     2,
-                    "Bee Eater.mp3",
-                    null,
+                    "Bee Eater S.m4a",
+                    "Bee Eater V.wav",
                     "assets/images/Bee Eater.jpg"
                 ],
                 [
@@ -443,8 +443,8 @@
                     7,
                     2,
                     2,
-                    "Emperor Penguin.wav",
-                    null,
+                    "Emperor Penguin S.m4a",
+                    "Emperor Penguin V.wav",
                     "assets/images/Emperor Penguin.jpg"
                 ],
                 [
@@ -454,8 +454,8 @@
                     7,
                     2,
                     2,
-                    "King Penguin.wav",
-                    null,
+                    "King Penguin S.m4a",
+                    "King Penguin V.wav",
                     "assets/images/King Penguin.jpg"
                 ],
                 [
@@ -465,8 +465,8 @@
                     1,
                     1,
                     1,
-                    "Bronze Tailed Peacock.mp3",
-                    null,
+                    "Bronze Tailed Peacock S.m4a",
+                    "Bronze Tailed Peacock V.wav",
                     "assets/images/Bronze Tailed Peacock.jpg"
                 ],
                 [
@@ -476,8 +476,8 @@
                     1,
                     3,
                     1,
-                    "Sarus Crane.wav",
-                    null,
+                    "Sarus Crane S.m4a",
+                    "Sarus Crane V.wav",
                     "assets/images/Sarus Crane.jpg"
                 ],
                 [
@@ -487,8 +487,8 @@
                     6,
                     1,
                     3,
-                    "Australian Magpie.mp3",
-                    null,
+                    "Australian Magpie S.m4a",
+                    "Australian Magpie V.wav",
                     "assets/images/Australian Magpie.jpg"
                 ],
                 [
@@ -498,8 +498,8 @@
                     2,
                     3,
                     3,
-                    "Grey Emutai.mp3",
-                    null,
+                    "Grey Emutai S.m4a",
+                    "Grey Emutai V.wav",
                     "assets/images/Grey Emutai.jpg"
                 ],
                 [
@@ -509,8 +509,8 @@
                     5,
                     3,
                     1,
-                    "European Greenfinch.mp3",
-                    null,
+                    "European Greenfinch S.m4a",
+                    "Emperor Greenfinch V.wav",
                     "assets/images/European Greenfinch.jpg"
                 ],
                 [
@@ -520,8 +520,8 @@
                     5,
                     3,
                     2,
-                    "European Roller.wav",
-                    null,
+                    "European Roller S.m4a",
+                    "European Roller V.wav",
                     "assets/images/European Roller.jpg"
                 ],
                 [
@@ -531,8 +531,8 @@
                     3,
                     3,
                     3,
-                    "American Robin.mp3",
-                    null,
+                    "American Robin S.m4a",
+                    "American Robin V.wav",
                     "assets/images/American Robin.jpg"
                 ],
                 [
@@ -542,8 +542,8 @@
                     3,
                     3,
                     3,
-                    "Northern Cardinal.mp3",
-                    null,
+                    "Northern Cardinal S.m4a",
+                    "Northern Cardinal V.wav",
                     "assets/images/Northern Cardinal.jpg"
                 ],
                 [
@@ -553,8 +553,8 @@
                     4,
                     3,
                     2,
-                    "Andean Condor.mp3",
-                    null,
+                    "Andean Condor S.m4a",
+                    "Andean Condor V.wav",
                     "assets/images/Andean Condor.jpg"
                 ],
                 [
@@ -564,8 +564,8 @@
                     4,
                     3,
                     1,
-                    "Violet Bellied Hummingbird.mp3",
-                    null,
+                    "Violet Bellied Hummingbird S.m4a",
+                    "Violet Bellied Hummingbird V.wav",
                     "assets/images/Violet Bellied Hummingbird.jpg"
                 ]
             ]
@@ -708,7 +708,7 @@
             "name": "Insect",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE Insect (KingdomId INTEGER NOT NULL REFERENCES Kingdom (KingdomId), InsectId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name varchar(100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar(100) UNIQUE, PVoice varchar(100) UNIQUE, Photo varchar(100) UNIQUE)",
+            "ddl": "CREATE TABLE Insect (KingdomId INTEGER NOT NULL REFERENCES Kingdom (KingdomId), InsectId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name varchar(100) UNIQUE NOT NULL, ContinentId INTEGER REFERENCES Continent (ContinentId) NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER REFERENCES FoodType (FoodId) NOT NULL, Sound varchar(100) UNIQUE, Voice varchar(100) UNIQUE, Photo varchar(100) UNIQUE)",
             "columns": [
                 {
                     "name": "KingdomId",
@@ -809,7 +809,7 @@
                     ]
                 },
                 {
-                    "name": "PVoice",
+                    "name": "Voice",
                     "type": "varchar",
                     "constraints": [
                         {
@@ -837,8 +837,8 @@
                     1,
                     3,
                     2,
-                    null,
-                    null,
+                    "Mosquito S.m4a",
+                    "Mosquito V.wav",
                     "assets/images/Mosquito.jpg"
                 ],
                 [
@@ -848,9 +848,9 @@
                     6,
                     3,
                     3,
-                    null,
-                    null,
-                    "assets/images/Katydid.webp"
+                    "Katydid S.m4a",
+                    "Katydid V.wav",
+                    "assets/images/Katydid.PNG"
                 ],
                 [
                     3,
@@ -859,8 +859,8 @@
                     3,
                     3,
                     2,
-                    null,
-                    null,
+                    "Bumble Bee S.m4a",
+                    "Bumble Bee V.wav",
                     "assets/images/Bumble Bee.jpg"
                 ],
                 [
@@ -870,8 +870,8 @@
                     3,
                     3,
                     1,
-                    null,
-                    null,
+                    "Monarch Butterfly S.m4a",
+                    "Monarch Butterfly V.wav",
                     "assets/images/Monarch Butterfly.jpg"
                 ],
                 [
@@ -881,8 +881,8 @@
                     3,
                     3,
                     3,
-                    null,
-                    null,
+                    "Housefly S.m4a",
+                    "Housefly V.wav",
                     "assets/images/Housefly.jpg"
                 ],
                 [
@@ -892,9 +892,9 @@
                     3,
                     3,
                     3,
-                    null,
-                    null,
-                    "assets/images/Firefly.jpeg"
+                    "Firefly S.m4a",
+                    "Firefly V.wav",
+                    "assets/images/FireFly.JPG"
                 ],
                 [
                     3,
@@ -903,8 +903,8 @@
                     6,
                     3,
                     1,
-                    null,
-                    null,
+                    "Drywood Termite S.m4a",
+                    "Drywood Termite V.wav",
                     "assets/images/Drywood Termite.jpg"
                 ]
             ]
@@ -977,7 +977,7 @@
             "name": "Reptile",
             "withoutRowId": false,
             "strict": false,
-            "ddl": "CREATE TABLE Reptile (KingdomId INTEGER NOT NULL, ReptileId INTEGER NOT NULL UNIQUE, Name varchar (100) NOT NULL UNIQUE, ContinentId INTEGER NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER NOT NULL, Sound varchar (100) UNIQUE, PVoice varchar (100) UNIQUE, Photo varchar (100) UNIQUE, PRIMARY KEY (ReptileId AUTOINCREMENT), FOREIGN KEY (ContinentId) REFERENCES Continent (ContinentId), FOREIGN KEY (FoodId) REFERENCES FoodType (FoodId), FOREIGN KEY (KingdomId) REFERENCES Kingdom (KingdomId))",
+            "ddl": "CREATE TABLE Reptile (KingdomId INTEGER NOT NULL, ReptileId INTEGER NOT NULL UNIQUE, Name varchar (100) NOT NULL UNIQUE, ContinentId INTEGER NOT NULL, TypeId INTEGER REFERENCES Type (TypeId) NOT NULL, FoodId INTEGER NOT NULL, Sound varchar (100) UNIQUE, Voice varchar (100) UNIQUE, Photo varchar (100) UNIQUE, PRIMARY KEY (ReptileId AUTOINCREMENT), FOREIGN KEY (ContinentId) REFERENCES Continent (ContinentId), FOREIGN KEY (FoodId) REFERENCES FoodType (FoodId), FOREIGN KEY (KingdomId) REFERENCES Kingdom (KingdomId))",
             "columns": [
                 {
                     "name": "KingdomId",
@@ -1062,7 +1062,7 @@
                     ]
                 },
                 {
-                    "name": "PVoice",
+                    "name": "Voice",
                     "type": "varchar",
                     "constraints": [
                         {
@@ -1109,7 +1109,7 @@
                     1,
                     2,
                     "Alligator.wav",
-                    null,
+                    "Alligator V.wav",
                     "assets/images/Alligator.jpg"
                 ],
                 [
@@ -1120,7 +1120,7 @@
                     1,
                     2,
                     "Cobra.wav",
-                    null,
+                    "Cobra V.wav",
                     "assets/images/Cobra.jpg"
                 ],
                 [
@@ -1131,7 +1131,7 @@
                     1,
                     3,
                     "Frog.wav",
-                    null,
+                    "Frog V.wav",
                     "assets/images/Frog.jpg"
                 ],
                 [
@@ -1142,7 +1142,7 @@
                     1,
                     3,
                     "Lizard.mp3",
-                    null,
+                    "Lizard V.wav",
                     "assets/images/Lizard.jpg"
                 ],
                 [
@@ -1153,7 +1153,7 @@
                     1,
                     2,
                     "Python.wav",
-                    null,
+                    "Python V.wav",
                     "assets/images/Python.jpg"
                 ],
                 [
@@ -1164,7 +1164,7 @@
                     1,
                     2,
                     "Rattlesnake.wav",
-                    null,
+                    "Rattlesnake V.wav",
                     "assets/images/Rattlesnake.jpg"
                 ]
             ]

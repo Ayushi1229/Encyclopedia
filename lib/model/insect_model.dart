@@ -9,7 +9,8 @@ class InsectModel {
   final String continentName;
   final String typeName;
   final String foodName;
-  // final String sound;
+  final String sound;
+  final String voice;
 
   InsectModel({
     required this.insectId,
@@ -22,7 +23,9 @@ class InsectModel {
     required this.continentName,
     required this.foodName,
     required this.typeName,
-    // required this.sound,
+    required this.sound,
+    required this.voice,
+
   });
 
   factory InsectModel.fromJson(Map<String, dynamic> json) {
@@ -37,7 +40,9 @@ class InsectModel {
         continentName: json['continentName'] ?? 0,
         foodName: json['foodName'] ?? 0,
         typeName: json['typeName'] ?? 0,
-        // sound: json['sound'] ?? 0
+        sound: json['sound'] ?? 0,
+        voice: json['voice'] ?? 0
+
     );
   }
 
@@ -53,7 +58,9 @@ class InsectModel {
       continentName: map['continentName'],
       typeName: map['typeName'],
       foodName: map['foodName'],
-      // sound: map['sound'],
+      sound: map['sound'],
+      voice: map['voice']
+
     );
   }
 
@@ -69,7 +76,9 @@ class InsectModel {
       'continentName' : continentName,
       'typeName' : typeName,
       'foodName' : foodName,
-      // 'sound' : sound
+      'sound' : sound,
+      'voice' : voice
+
     };
   }
 
@@ -87,6 +96,9 @@ InsectModel {
   continentName : $continentName,
   typeName : $typeName,
   foodName : $foodName,
+  sound : $sound,
+  voice : $voice
+
 }''';
   }
 
