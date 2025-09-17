@@ -1,12 +1,3 @@
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'package:collection/collection.dart';
-
-import '../model/continent_model.dart';
-import '../model/food_type_model.dart';
-import '../model/type_model.dart';
 import '../utils/import_export.dart';
 
 class KingdomController extends GetxController {
@@ -198,8 +189,7 @@ class KingdomController extends GetxController {
         typeId: row[4],
         foodId: row[5],
         sound: row[6],
-        voice: row[7],
-        photo: row[8],
+        photo: row[7],
         continentName: getContinentName(row[3]),
         typeName: getTypeName(row[4]),
         foodName: getFoodName(row[5]),
@@ -215,8 +205,7 @@ class KingdomController extends GetxController {
         typeId: row[4],
         foodId: row[5],
         sound: row[6],
-        voice: row[7],
-        photo: row[8],
+        photo: row[7],
         continentName: getContinentName(row[3]),
         typeName: getTypeName(row[4]),
         foodName: getFoodName(row[5]),
@@ -232,8 +221,7 @@ class KingdomController extends GetxController {
         typeId: row[4],
         foodId: row[5],
         sound: row[6],
-        voice: row[7],
-        photo: row[8],
+        photo: row[7],
         continentName: getContinentName(row[3]),
         typeName: getTypeName(row[4]),
         foodName: getFoodName(row[5]),
@@ -249,8 +237,7 @@ class KingdomController extends GetxController {
         typeId: row[4],
         foodId: row[5],
         sound: row[6],
-        voice: row[7],
-        photo: row[8],
+        photo: row[7],
         continentName: getContinentName(row[3]),
         typeName: getTypeName(row[4]),
         foodName: getFoodName(row[5]),

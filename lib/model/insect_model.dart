@@ -10,7 +10,6 @@ class InsectModel {
   final String typeName;
   final String foodName;
   final String sound;
-  final String voice;
 
   InsectModel({
     required this.insectId,
@@ -24,7 +23,6 @@ class InsectModel {
     required this.foodName,
     required this.typeName,
     required this.sound,
-    required this.voice,
 
   });
 
@@ -41,7 +39,6 @@ class InsectModel {
         foodName: json['foodName'] ?? 0,
         typeName: json['typeName'] ?? 0,
         sound: json['sound'] ?? 0,
-        voice: json['voice'] ?? 0
 
     );
   }
@@ -59,7 +56,6 @@ class InsectModel {
       typeName: map['typeName'],
       foodName: map['foodName'],
       sound: map['sound'],
-      voice: map['voice']
 
     );
   }
@@ -77,7 +73,6 @@ class InsectModel {
       'typeName' : typeName,
       'foodName' : foodName,
       'sound' : sound,
-      'voice' : voice
 
     };
   }
@@ -97,7 +92,6 @@ InsectModel {
   typeName : $typeName,
   foodName : $foodName,
   sound : $sound,
-  voice : $voice
 
 }''';
   }

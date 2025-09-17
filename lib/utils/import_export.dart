@@ -3,7 +3,6 @@ export 'package:get/get.dart';
 export 'package:encyclopedia/favouritepage/fav_view.dart';
 export 'package:encyclopedia/utils/strings.dart';
 export '../menu/about.dart';
-export '../menu/setting.dart';
 export 'dart:convert';
 export 'package:encyclopedia/model/bird_model.dart';
 export 'package:encyclopedia/model/insect_model.dart';
@@ -15,3 +14,5 @@ export 'package:path/path.dart';
 export 'package:encyclopedia/controller/kingdom_controller.dart';
 export 'package:encyclopedia/view/category_grid_view.dart';
 export 'package:encyclopedia/firstpage/firstpage_view.dart';
+export 'package:shared_preferences/shared_preferences.dart';
+

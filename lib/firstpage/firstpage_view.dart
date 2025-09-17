@@ -141,9 +141,9 @@ class _HomeScreenState extends State<HomeScreen>
                 elevation: 8,
                 onSelected: (value) {
                   if (value == 'about') {
-                    Get.to(() => const About());
+                    Get.to(() => const Aboutus());
                   } else if (value == 'setting') {
-                    Get.to(() => const Setting());
+                    // Get.to(() => const Setting());
                   }
                 },
                 itemBuilder: (context) => [

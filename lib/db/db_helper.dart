@@ -1,13 +1,5 @@
+import '../utils/import_export.dart';
 import 'dart:io';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-
-import '../model/animal_model.dart';
-import '../model/bird_model.dart';
-import '../model/insect_model.dart';
-import '../model/reptile_model.dart';
-
 class DBHelper {
   static Database? _db;
 

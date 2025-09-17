@@ -4,7 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  final String appLogo;
+  final String appName;
+  final String appVersion;
+  final String duLogo;
+  final String aswdcLogo;
+
+  const SplashScreen({
+    super.key,
+    required this.appLogo,
+    required this.appName,
+    required this.appVersion,
+    required this.duLogo,
+    required this.aswdcLogo,
+  });
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -91,14 +104,10 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _navigateToHome() {
-    // Replace with your home screen navigation
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => ResponsivePage()),
     );
-
-    // For demo purposes, just print
-    print("Navigate to Home Screen");
   }
 
   @override
@@ -129,138 +138,230 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         ),
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
             children: [
-              // Animated Logo/Icon Section
-              AnimatedBuilder(
-                animation: _scaleAnimation,
-                builder: (context, child) {
-                  return Transform.scale(
-                    scale: _scaleAnimation.value,
-                    child: AnimatedBuilder(
-                      animation: _rotateAnimation,
+              // Main content in center
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Animated Logo/Icon Section
+                    AnimatedBuilder(
+                      animation: _scaleAnimation,
                       builder: (context, child) {
-                        return Transform.rotate(
-                          angle: _rotateAnimation.value * 0.1,
-                          child: Container(
-                            width: 150,
-                            height: 150,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              gradient: RadialGradient(
-                                colors: [
-                                  Colors.white,
-                                  Colors.lightGreen.shade100,
-                                  Colors.lightGreen.shade300,
-                                ],
-                                stops: const [0.0, 0.7, 1.0],
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 20,
-                                  offset: const Offset(0, 10),
+                        return Transform.scale(
+                          scale: _scaleAnimation.value,
+                          child: AnimatedBuilder(
+                            animation: _rotateAnimation,
+                            builder: (context, child) {
+                              return Transform.rotate(
+                                angle: _rotateAnimation.value * 0.1,
+                                child: Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    gradient: RadialGradient(
+                                      colors: [
+                                        Colors.white,
+                                        Colors.lightGreen.shade100,
+                                        Colors.lightGreen.shade300,
+                                      ],
+                                      stops: const [0.0, 0.7, 1.0],
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 20,
+                                        offset: const Offset(0, 10),
+                                      ),
+                                      BoxShadow(
+                                        color: Colors.white24,
+                                        blurRadius: 10,
+                                        offset: const Offset(0, -5),
+                                      ),
+                                    ],
+                                  ),
+                                  child: widget.appLogo.isNotEmpty
+                                      ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(75),
+                                    child: Image.asset(
+                                      widget.appLogo,
+                                      width: 120,
+                                      height: 120,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return const Icon(
+                                          Icons.menu_book_rounded,
+                                          size: 80,
+                                          color: Color(0xFF2E7D32),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                      : const Icon(
+                                    Icons.menu_book_rounded,
+                                    size: 80,
+                                    color: Color(0xFF2E7D32),
+                                  ),
                                 ),
-                                BoxShadow(
-                                  color: Colors.white24,
-                                  blurRadius: 10,
-                                  offset: const Offset(0, -5),
-                                ),
-                              ],
-                            ),
-                            child: const Icon(
-                              Icons.menu_book_rounded,
-                              size: 80,
-                              color: Color(0xFF2E7D32),
-                            ),
+                              );
+                            },
                           ),
                         );
                       },
                     ),
-                  );
-                },
-              ),
 
-              const SizedBox(height: 40),
+                    const SizedBox(height: 40),
 
-              // Animated App Name
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: Column(
-                  children: [
-                    const Text(
-                      'ENCYCLOPEDIA',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        letterSpacing: 3.0,
-                        shadows: [
-                          Shadow(
-                            offset: Offset(2, 2),
-                            blurRadius: 4,
-                            color: Colors.black26,
+                    // Animated App Name
+                    FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: Column(
+                        children: [
+                          const Text(
+                            'ECODOMIA',
+                            style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 3.0,
+                              shadows: [
+                                Shadow(
+                                  offset: Offset(2, 2),
+                                  blurRadius: 4,
+                                  color: Colors.black26,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Container(
+                            width: 100,
+                            height: 3,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(2),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Discover Nature\'s Wonders',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: 1.0,
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Container(
-                      width: 100,
-                      height: 3,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(2),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
+
+                    const SizedBox(height: 60),
+
+                    // Animated Loading Indicator
+                    FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: CircularProgressIndicator(
+                              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                              strokeWidth: 3,
+                              backgroundColor: Colors.white24,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Loading...',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.w300,
+                            ),
                           ),
                         ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Discover Nature\'s Wonders',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white70,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 1.0,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 60),
-
-              // Animated Loading Indicator
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: CircularProgressIndicator(
-                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-                        strokeWidth: 3,
-                        backgroundColor: Colors.white24,
+              // Full width logo bar at bottom
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: Container(
+                    height: 80,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          const Color(0xFF2E7D32), // Dark Green
+                          const Color(0xFF4CAF50), // Green
+                          const Color(0xFF66BB6A), // Light Green
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Loading...',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.white70,
-                        fontWeight: FontWeight.w300,
-                      ),
+                    child: Row(
+                      children: [
+                        // DU Logo - Left half
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(15),
+                            child: Image.asset(
+                              'assets/images/du_logo.png',
+                              fit: BoxFit.contain,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(
+                                  Icons.school,
+                                  color: Colors.white,
+                                  size: 40,
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        // Divider
+                        Container(
+                          width: 1,
+                          height: 50,
+                          color: Colors.white.withOpacity(0.3),
+                        ),
+                        // ASWDC Logo - Right half
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(15),
+                            child: Image.asset(
+                              'assets/images/logo_aswdc.png',
+                              fit: BoxFit.contain,
+                              errorBuilder: (context, error, stackTrace) {
+                                return const Icon(
+                                  Icons.code,
+                                  color: Colors.white,
+                                  size: 40,
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],

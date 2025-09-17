@@ -61,11 +61,14 @@ class FavView extends StatelessWidget {
             ),
           );
         } else {
+          // Create a reversed list to show most recent favorites first
+          final reversedFavorites = controller.favoriteList.cast<dynamic>().reversed.toList();
+
           return ListView.builder(
             padding: const EdgeInsets.all(16),
-            itemCount: controller.favoriteList.length,
+            itemCount: reversedFavorites.length,
             itemBuilder: (context, index) {
-              final item = controller.favoriteList.cast<dynamic>()[index];
+              final item = reversedFavorites[index];
               return Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: Card(
@@ -156,6 +159,24 @@ class FavView extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            // Add a "Recently Added" badge for the first few items
+                            if (index < 3) // Show badge for first 3 items (most recent)
+                              Container(
+                                margin: const EdgeInsets.only(right: 8),
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: Colors.orange.shade100,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  'Recent',
+                                  style: TextStyle(
+                                    color: Colors.orange.shade700,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
@@ -296,7 +317,7 @@ class FavView extends StatelessWidget {
                               _buildDetailRow(
                                 label: 'Mode Type',
                                 value: item.typeName,
-                                icon: Icons.directions_walk_outlined,
+                                icon: Icons.landscape,
                               ),
                             ],
                           ),
@@ -382,8 +403,8 @@ class FavView extends StatelessWidget {
               color: Colors.grey.shade700,
               fontWeight: FontWeight.w500,
             ),
-            overflow: TextOverflow.ellipsis, // 🔽 prevent overflow issue
-            maxLines: 1, // keep in single line
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
             softWrap: false,
           ),
         ),

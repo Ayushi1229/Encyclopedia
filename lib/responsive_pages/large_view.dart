@@ -1,8 +1,17 @@
+import 'dart:io';
+
+import 'package:audioplayers/audioplayers.dart';
+import 'package:encyclopedia/menu/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../detail_screen/detail_screen.dart';
 import '../utils/import_export.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+
+import 'mobile_view.dart';
 
 class LargeView extends StatefulWidget {
   LargeView({Key? key}) : super(key: key) {
@@ -12,6 +21,12 @@ class LargeView extends StatefulWidget {
   @override
   State<LargeView> createState() => _LargeViewState();
 }
+
+bool isPlaying = false;
+bool isSpeaking = false;
+late FlutterTts flutterTts;
+late final dynamic item;
+late final AudioPlayer player;
 
 class _LargeViewState extends State<LargeView> {
   final KingdomController controller = Get.find();
@@ -26,6 +41,10 @@ class _LargeViewState extends State<LargeView> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _currentIndex);
+    player = AudioPlayer();
+
+    // Initialize TTS
+    _initTts();
 
     // Ensure data is loaded when widget initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -40,10 +59,23 @@ class _LargeViewState extends State<LargeView> {
     // controller.loadData();
   }
 
+  void _initTts() {
+    flutterTts = FlutterTts();
+    flutterTts.setCompletionHandler(() {
+      if (mounted) {
+        setState(() {
+          isSpeaking = false;
+        });
+      }
+    });
+  }
+
   @override
   void dispose() {
     _pageController.dispose();
     _searchController.dispose();
+    player.dispose();
+    flutterTts.stop();
     super.dispose();
   }
 
@@ -74,7 +106,8 @@ class _LargeViewState extends State<LargeView> {
     final lowerQuery = _searchQuery.toLowerCase().trim();
     return currentList.where((item) {
       final nameMatch = item.name.toLowerCase().contains(lowerQuery);
-      final continentMatch = (item.continentName ?? '').toLowerCase().contains(lowerQuery);
+      final continentMatch =
+      (item.continentName ?? '').toLowerCase().contains(lowerQuery);
       return nameMatch || continentMatch;
     }).toList();
   }
@@ -123,6 +156,22 @@ class _LargeViewState extends State<LargeView> {
         return 'Reptiles';
       default:
         return 'Animals';
+    }
+  }
+
+  // Method to open reel view
+  void _openReelView() {
+    final currentItems = _getFilteredItems();
+    if (currentItems.isNotEmpty) {
+      Get.to(
+            () => ReelView(
+          items: currentItems,
+          initialIndex: 0,
+          categoryTitle: _getCurrentTitle(),
+        ),
+        transition: Transition.fadeIn, // Or any other transition you prefer
+        duration: const Duration(milliseconds: 400),
+      );
     }
   }
 
@@ -201,6 +250,29 @@ class _LargeViewState extends State<LargeView> {
                 ),
               ),
             ),
+          // Reel view button
+          Container(
+            margin: const EdgeInsets.only(right: 8),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: _openReelView,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade100,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.video_library_rounded,
+                    color: Colors.orange.shade600,
+                    size: 18,
+                  ),
+                ),
+              ),
+            ),
+          ),
           Container(
             margin: const EdgeInsets.only(right: 12),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -251,13 +323,16 @@ class _LargeViewState extends State<LargeView> {
             final lowerQuery = _searchQuery.toLowerCase().trim();
             displayData = tabData.where((item) {
               final nameMatch = item.name.toLowerCase().contains(lowerQuery);
-              final continentMatch = (item.continentName ?? '').toLowerCase().contains(lowerQuery);
+              final continentMatch =
+              (item.continentName ?? '').toLowerCase().contains(lowerQuery);
               return nameMatch || continentMatch;
             }).toList();
           }
 
           // Check if data is loading for current tab
-          if (displayData.isEmpty && _searchQuery.isEmpty && index == _currentIndex) {
+          if (displayData.isEmpty &&
+              _searchQuery.isEmpty &&
+              index == _currentIndex) {
             return const Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.lightGreen),
@@ -266,7 +341,9 @@ class _LargeViewState extends State<LargeView> {
           }
 
           // Check if search is active but no results found for current tab
-          if (_searchQuery.isNotEmpty && displayData.isEmpty && index == _currentIndex) {
+          if (_searchQuery.isNotEmpty &&
+              displayData.isEmpty &&
+              index == _currentIndex) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -398,16 +475,25 @@ class _LargeViewState extends State<LargeView> {
               elevation: 8,
               onSelected: (value) {
                 if (value == 'About us') {
-                  Get.to(() => const About());
+                  Get.to(() => const Aboutus());
                 } else if (value == 'Feedback') {
-                  // Handle feedback
+                  Get.to(() => const FeedbackScreen());
                 } else if (value == 'Share') {
-                  // Handle share
+                  _shareApp();
                 } else if (value == 'Other Apps') {
-                  // Handle other apps
-                } else if (value == 'Check for update') {
-                  // Handle update check
+                  String url;
+                  if (Platform.isIOS) {
+                    url =
+                    "https://apps.apple.com/uz/developer/g-sanghani/id772995906?see-all=i-phone-apps";
+                  } else {
+                    url =
+                    "https://play.google.com/store/apps/developer?id=Darshan+University";
+                  }
+                  launchUrl(Uri.parse(url));
                 }
+                // else if (value == 'Check for update') {
+                //   // Handle update check
+                // }
               },
               itemBuilder: (context) => [
                 PopupMenuItem(
@@ -458,18 +544,18 @@ class _LargeViewState extends State<LargeView> {
                     ],
                   ),
                 ),
-                PopupMenuItem(
-                  value: 'Check for update',
-                  child: Row(
-                    children: [
-                      Icon(Icons.system_update_outlined,
-                          color: Colors.lightGreen.shade400),
-                      const SizedBox(width: 12),
-                      const Text('Check for update',
-                          style: TextStyle(fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                ),
+                // PopupMenuItem(
+                //   value: 'Check for update',
+                //   child: Row(
+                //     children: [
+                //       Icon(Icons.system_update_outlined,
+                //           color: Colors.lightGreen.shade400),
+                //       const SizedBox(width: 12),
+                //       const Text('Check for update',
+                //           style: TextStyle(fontWeight: FontWeight.w500)),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -778,5 +864,355 @@ class _LargeViewState extends State<LargeView> {
         );
       },
     );
+  }
+}
+
+void _shareApp() {
+  const String message = "Download Ecodomia app today! \nhttps://play.google.com/store";
+  Share.share(message); // requires share_plus package
+}
+
+// Reel View Widget
+class ReelView extends StatefulWidget {
+  final List<dynamic> items;
+  final int initialIndex;
+  final String categoryTitle;
+
+  const ReelView({
+    Key? key,
+    required this.items,
+    required this.initialIndex,
+    required this.categoryTitle,
+  }) : super(key: key);
+
+  @override
+  State<ReelView> createState() => _ReelViewState();
+}
+
+class _ReelViewState extends State<ReelView> {
+  late PageController _pageController;
+  int _currentIndex = 0;
+  final KingdomController controller = Get.find();
+  late FlutterTts flutterTts;
+  late AudioPlayer audioPlayer;
+  bool isPlaying = false;
+  bool isSpeaking = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex;
+    _pageController = PageController(initialPage: widget.initialIndex);
+    audioPlayer = AudioPlayer();
+
+    // Initialize TTS
+    _initTts();
+  }
+
+  void _initTts() {
+    flutterTts = FlutterTts();
+    flutterTts.setCompletionHandler(() {
+      if (mounted) {
+        setState(() {
+          isSpeaking = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    audioPlayer.dispose();
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          // Main PageView for reel
+          PageView.builder(
+            controller: _pageController,
+            scrollDirection: Axis.vertical,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+                // Stop any playing audio/voice when changing to new item
+                _stopAllAudio();
+              });
+            },
+            itemCount: widget.items.length,
+            itemBuilder: (context, index) {
+              final item = widget.items[index];
+              return _buildReelItem(item, index);
+            },
+          ),
+          // Top bar with close button
+          Positioned(
+            top: 50,
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                  // Container(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.black.withOpacity(0.5),
+                  //     borderRadius: BorderRadius.circular(20),
+                  //   ),
+                  //   // child: Text(
+                  //   //   '${_currentIndex + 1} / ${widget.items.length}',
+                  //   //   style: const TextStyle(
+                  //   //     color: Colors.white,
+                  //   //     fontSize: 14,
+                  //   //     fontWeight: FontWeight.w600,
+                  //   //   ),
+                  //   // ),
+                  // ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildReelItem(dynamic item, int index) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Image.asset(item.photo, fit: BoxFit.cover),
+        ),
+        Container(color: Colors.black.withOpacity(0.4)),
+
+        // Title and View Details Button
+        Positioned(
+          bottom: 80,
+          left: 16,
+          right: 100,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                item.name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              if (item.continentName != null)
+                Text(
+                  item.continentName!,
+                  style: const TextStyle(color: Colors.white70),
+                ),
+              const SizedBox(height: 12),
+              // View Details Button moved here
+              ElevatedButton.icon(
+                onPressed: () {
+                  Get.to(() => DetailScreen(item: item));
+                },
+                icon: const Icon(Icons.info, size: 16),
+                label: const Text(
+                  'View Details',
+                  style: TextStyle(fontSize: 12),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // Action Buttons (without view details button)
+        Positioned(
+          right: 16,
+          bottom: 100,
+          child: Column(
+            children: [
+              _buildActionButton(
+                isPlaying ? Icons.volume_off_rounded : Icons.volume_up_rounded,
+                isPlaying ? Colors.red : Colors.orange,
+                isPlaying ? "Stop Sound" : "Play Sound",
+                    () => _handleSoundButton(item),
+              ),
+              const SizedBox(height: 20),
+              Obx(() {
+                final isFav = controller.isFavorite(item);
+                return _buildActionButton(
+                  isFav
+                      ? Icons.favorite_rounded
+                      : Icons.favorite_border_rounded,
+                  Colors.pink,
+                  isFav ? "Remove Favorite" : "Add Favorite",
+                      () => controller.toggleFavorite(item),
+                );
+              }),
+              const SizedBox(height: 20),
+              _buildActionButton(
+                isSpeaking ? Icons.spatial_audio : Icons.spatial_audio_off,
+                isSpeaking ? Colors.red : Colors.green,
+                isSpeaking ? "Stop Voice" : "Play Voice",
+                    () => _handleVoiceButton(item),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButton(
+      IconData icon, Color color, String tooltip, VoidCallback onPressed) {
+    return Tooltip(
+      message: tooltip,
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.3),
+              blurRadius: 15,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            shape: const CircleBorder(),
+            backgroundColor: color,
+            elevation: 0,
+            padding: const EdgeInsets.all(20),
+          ),
+          child: Icon(icon, size: 28, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  void _stopAllAudio() {
+    if (isPlaying) {
+      audioPlayer.stop();
+      setState(() => isPlaying = false);
+    }
+    if (isSpeaking) {
+      flutterTts.stop();
+      setState(() => isSpeaking = false);
+    }
+  }
+
+  Future<void> _handleVoiceButton(dynamic item) async {
+    try {
+      final String speciesName = item.name ?? "Unknown creature";
+
+      if (isSpeaking) {
+        await flutterTts.stop();
+        setState(() => isSpeaking = false);
+      } else {
+        // Stop any playing sound first
+        if (isPlaying) {
+          await audioPlayer.stop();
+          setState(() => isPlaying = false);
+        }
+
+        setState(() => isSpeaking = true);
+
+        // Set TTS properties for better speech
+        await flutterTts.setLanguage("en-US");
+        await flutterTts.setSpeechRate(0.5);
+        await flutterTts.setVolume(1.0);
+        await flutterTts.setPitch(1.0);
+
+        await flutterTts.speak(speciesName);
+      }
+    } catch (e) {
+      setState(() => isSpeaking = false);
+      Get.snackbar(
+        "Voice Error",
+        "Could not play voice: ${e.toString()}",
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  Future<void> _handleSoundButton(dynamic item) async {
+    try {
+      final String? sound = item.sound;
+
+      if (isPlaying) {
+        await audioPlayer.stop();
+        setState(() => isPlaying = false);
+      } else {
+        if (sound != null && sound.isNotEmpty) {
+          // Stop any speaking first
+          if (isSpeaking) {
+            await flutterTts.stop();
+            setState(() => isSpeaking = false);
+          }
+
+          await audioPlayer.stop();
+          setState(() => isPlaying = true);
+
+          // Listen for when the audio completes
+          audioPlayer.onPlayerComplete.listen((event) {
+            if (mounted) {
+              setState(() => isPlaying = false);
+            }
+          });
+
+          await audioPlayer.play(AssetSource('sound/$sound'));
+        } else {
+          Get.snackbar(
+            "No Sound",
+            "This species has no sound available.",
+            backgroundColor: Colors.orange.withOpacity(0.8),
+            colorText: Colors.white,
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        }
+      }
+    } catch (e) {
+      setState(() => isPlaying = false);
+      Get.snackbar(
+        "Sound Error",
+        "Could not play sound: ${e.toString()}",
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 }

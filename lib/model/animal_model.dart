@@ -10,7 +10,6 @@ class AnimalModel {
   final String typeName;
   final String foodName;
   final String sound;
-  final String voice;
 
   AnimalModel({
     required this.animalId,
@@ -24,7 +23,6 @@ class AnimalModel {
     required this.foodName,
     required this.typeName,
     required this.sound,
-    required this.voice,
   });
 
   factory AnimalModel.fromJson(Map<String, dynamic> json) {
@@ -40,7 +38,6 @@ class AnimalModel {
       foodName: json['foodName'] ?? 0,
       typeName: json['typeName'] ?? 0,
       sound: json['sound'] ?? 0,
-      voice: json['voice'] ?? 0
     );
   }
 
@@ -57,7 +54,6 @@ class AnimalModel {
       typeName: map['typeName'],
       foodName: map['foodName'],
       sound: map['sound'],
-      voice: map['voice']
     );
   }
 
@@ -74,7 +70,7 @@ class AnimalModel {
       'typeName' : typeName,
       'foodName' : foodName,
       'sound' : sound,
-      'voice' : voice
+
     };
   }
 
@@ -93,7 +89,6 @@ AnimalModel {
   typeName : $typeName,
   foodName : $foodName,
   sound : $sound,
-  voice : $voice
 }''';
   }
 

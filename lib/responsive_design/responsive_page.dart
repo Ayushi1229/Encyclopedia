@@ -14,13 +14,37 @@ class ResponsivePage extends StatelessWidget {
         double width = constraints.maxWidth;
 
         if (width <= 550) {
-          return  SafeArea(child: MobileView());
+          return SafeArea(
+            top: false,
+            bottom: false,
+            left: false,
+            right: false,
+            child: MobileView(),
+          );
         } else if (width <= 1280) {
-          return  SafeArea(child: TabView());
+          return SafeArea(
+            top: false,
+            bottom: false,
+            left: false,
+            right: false,
+            child: TabView(),
+          );
         } else if (width <= 1920) {
-          return  SafeArea(child: WebView());
+          return SafeArea(
+            top: false,
+            bottom: false,
+            left: false,
+            right: false,
+            child: WebView(),
+          );
         } else {
-          return  SafeArea(child: LargeView());
+          return SafeArea(
+            top: false,
+            bottom: false,
+            left: false,
+            right: false,
+            child: LargeView(),
+          );
         }
       },
     );
