@@ -7,7 +7,8 @@ import 'package:flutter/services.dart'; // Add this import
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import '../controller/kingdom_controller.dart';
-
+import '../responsive_pages/large_view.dart';
+// import '../utils/import_export.dart';
 
 class DetailScreen extends StatefulWidget {
   final dynamic item;
@@ -103,17 +104,43 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
     super.dispose();
   }
 
-  void _showFullScreenImage() {
+  // NEW METHOD: Navigate to reel view instead of full screen image
+  void _navigateToReelView() {
+    // Stop any playing audio before navigation
+    _audioManager.stopAll();
+
+    // Get the appropriate list and find the current item's index
+    List<dynamic> items = _getItemList();
+    int currentIndex = items.indexWhere((item) => item.name == widget.item.name);
+    if (currentIndex == -1) currentIndex = 0; // Fallback to first item if not found
+
+    // Navigate to ReelView with proper parameters
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => FullScreenImageViewer(
-          imageAsset: widget.item.photo ?? '',
-          heroTag: 'detail_image_${widget.item.name}',
-          title: widget.item.name ?? 'Unknown',
+        builder: (context) => ReelView(
+          items: items,
+          initialIndex: currentIndex,
+          categoryTitle: getSpeciesTitle(),
         ),
       ),
     );
+  }
+
+  // Helper method to get the appropriate item list based on species type
+  List<dynamic> _getItemList() {
+    final item = widget.item;
+    if (controller.animalList.contains(item)) {
+      return controller.animalList;
+    } else if (controller.birdList.contains(item)) {
+      return controller.birdList;
+    } else if (controller.insectList.contains(item)) {
+      return controller.insectList;
+    } else if (controller.reptileList.contains(item)) {
+      return controller.reptileList;
+    }
+    // If not found in any specific category, return all items or related species
+    return controller.getRelatedSpecies(widget.item);
   }
 
   IconData getSpeciesIcon() {
@@ -249,7 +276,8 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                       child: Hero(
                         tag: 'detail_image_${item.name}',
                         child: GestureDetector(
-                          onTap: _showFullScreenImage,
+                          // CHANGED: Now calls _navigateToReelView instead of _showFullScreenImage
+                          onTap: _navigateToReelView,
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
@@ -268,6 +296,44 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                       Colors.black.withOpacity(0.6),
                                     ],
                                     stops: const [0.3, 0.7, 1.0],
+                                  ),
+                                ),
+                              ),
+                              // ADDED: Visual indicator that image is tappable for reel view
+                              Positioned(
+                                top: 20,
+                                right: 20,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.6),
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                      color: Colors.white.withOpacity(0.3),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.play_circle_outline,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        "Reel View",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -816,88 +882,6 @@ class AudioManager {
     } catch (e) {
       debugPrint('Error disposing AudioManager: $e');
     }
-  }
-
-
-}
-
-// Full-Screen Image Viewer Widget
-class FullScreenImageViewer extends StatelessWidget {
-  final String imageAsset;
-  final String heroTag;
-  final String title;
-
-  const FullScreenImageViewer({
-    super.key,
-    required this.imageAsset,
-    required this.heroTag,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          Center(
-            child: Hero(
-              tag: heroTag,
-              child: InteractiveViewer(
-                panEnabled: true,
-                minScale: 0.5,
-                maxScale: 4.0,
-                child: Image.asset(
-                  imageAsset,
-                  fit: BoxFit.contain,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 50,
-            right: 20,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.black.withOpacity(0.5),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.close,
-                  color: Colors.white,
-                  size: 24,
-                ),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 50,
-            left: 20,
-            right: 20,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.7),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 

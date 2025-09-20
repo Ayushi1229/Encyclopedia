@@ -12,7 +12,14 @@ export '../model/animal_model.dart';
 export 'package:sqflite/sqflite.dart';
 export 'package:path/path.dart';
 export 'package:encyclopedia/controller/kingdom_controller.dart';
-export 'package:encyclopedia/view/category_grid_view.dart';
-export 'package:encyclopedia/firstpage/firstpage_view.dart';
 export 'package:shared_preferences/shared_preferences.dart';
-
+export 'dart:async';
+export 'package:audioplayers/audioplayers.dart';
+export 'package:encyclopedia/responsive_design/responsive_page.dart';
+export 'package:flutter_tts/flutter_tts.dart';
+export '../responsive_pages/large_view.dart';
+export 'package:encyclopedia/menu/feedback.dart';
+export 'package:share_plus/share_plus.dart';
+export 'package:url_launcher/url_launcher.dart';
+export '../detail_screen/detail_screen.dart';
+export 'package:google_fonts/google_fonts.dart';

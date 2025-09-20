@@ -1,7 +1,7 @@
 import 'package:encyclopedia/responsive_design/responsive_page.dart';
-import 'package:encyclopedia/responsive_pages/mobile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 
 class SplashScreen extends StatefulWidget {
   final String appLogo;
@@ -36,13 +36,11 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // Set status bar to transparent
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ));
 
-    // Initialize animation controllers
     _fadeController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
@@ -58,7 +56,6 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
     );
 
-    // Initialize animations
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -77,16 +74,14 @@ class _SplashScreenState extends State<SplashScreen>
 
     _rotateAnimation = Tween<double>(
       begin: 0.0,
-      end: 1.0,
+      end: 0.0,
     ).animate(CurvedAnimation(
       parent: _rotateController,
       curve: Curves.easeInOut,
     ));
 
-    // Start animations
     _startAnimations();
 
-    // Navigate to next screen after 3 seconds
     Future.delayed(const Duration(seconds: 3), () {
       _navigateToHome();
     });
@@ -140,12 +135,10 @@ class _SplashScreenState extends State<SplashScreen>
         child: SafeArea(
           child: Stack(
             children: [
-              // Main content in center
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Animated Logo/Icon Section
                     AnimatedBuilder(
                       animation: _scaleAnimation,
                       builder: (context, child) {
@@ -191,10 +184,11 @@ class _SplashScreenState extends State<SplashScreen>
                                       height: 120,
                                       fit: BoxFit.cover,
                                       errorBuilder: (context, error, stackTrace) {
-                                        return const Icon(
-                                          Icons.menu_book_rounded,
-                                          size: 80,
-                                          color: Color(0xFF2E7D32),
+                                        return Image.asset(
+                                          'assets/images/Main Logo.jpg', // Your fallback image
+                                          width: 120,
+                                          height: 120,
+                                          fit: BoxFit.cover,
                                         );
                                       },
                                     ),
@@ -214,7 +208,6 @@ class _SplashScreenState extends State<SplashScreen>
 
                     const SizedBox(height: 40),
 
-                    // Animated App Name
                     FadeTransition(
                       opacity: _fadeAnimation,
                       child: Column(
@@ -267,7 +260,6 @@ class _SplashScreenState extends State<SplashScreen>
 
                     const SizedBox(height: 60),
 
-                    // Animated Loading Indicator
                     FadeTransition(
                       opacity: _fadeAnimation,
                       child: Column(
@@ -297,7 +289,6 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
 
-              // Full width logo bar at bottom
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -319,7 +310,6 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                     child: Row(
                       children: [
-                        // DU Logo - Left half
                         Expanded(
                           child: Container(
                             padding: const EdgeInsets.all(15),
@@ -336,13 +326,11 @@ class _SplashScreenState extends State<SplashScreen>
                             ),
                           ),
                         ),
-                        // Divider
                         Container(
                           width: 1,
                           height: 50,
                           color: Colors.white.withOpacity(0.3),
                         ),
-                        // ASWDC Logo - Right half
                         Expanded(
                           child: Container(
                             padding: const EdgeInsets.all(15),
@@ -372,7 +360,6 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-// Extension for additional green color codes
 extension GreenColors on Colors {
   static const Color darkForest = Color(0xFF1B5E20);
   static const Color forest = Color(0xFF2E7D32);

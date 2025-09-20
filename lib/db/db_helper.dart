@@ -31,7 +31,6 @@ class DBHelper {
     return openDatabase(path);
   }
 
-  // ------------------ Fetch Lists with Foreign Key JOINs ------------------
 
   Future<List<AnimalModel>> getAnimals() async {
     final db = await database;
@@ -116,7 +115,6 @@ class DBHelper {
   }
 
 
-// ------------------ Foreign Key Lookups ------------------
 
   Future<String?> getContinentNameById(int id) async {
     final db = await database;

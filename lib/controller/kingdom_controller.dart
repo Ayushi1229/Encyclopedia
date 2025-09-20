@@ -17,7 +17,7 @@ class KingdomController extends GetxController {
   void onInit() {
     super.onInit();
     loadJsonData().then((_) {
-      loadFavorites(); // Load favorites after JSON data is ready
+      loadFavorites();
     });
   }
 
@@ -47,18 +47,16 @@ class KingdomController extends GetxController {
         duration: Duration(seconds: 2),
       );
     }
-    saveFavorites(); // Save after every change
+    saveFavorites();
   }
 
   bool isFavorite(dynamic item) {
     return favoriteList.any((element) => element.name == item.name);
   }
 
-  /// Save favorites to SharedPreferences
   Future<void> saveFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    // Store as JSON strings
     List<String> favJsonList = favoriteList.map((item) {
       return jsonEncode({
         'name': item.name,
@@ -73,7 +71,6 @@ class KingdomController extends GetxController {
     await prefs.setStringList('favorites', favJsonList);
   }
 
-  /// Load favorites from SharedPreferences
   Future<void> loadFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> favJsonList = prefs.getStringList('favorites') ?? [];
@@ -83,7 +80,6 @@ class KingdomController extends GetxController {
     for (String jsonStr in favJsonList) {
       var favMap = jsonDecode(jsonStr);
 
-      // Match with existing items from any list
       var match = [
         ...animalList,
         ...birdList,

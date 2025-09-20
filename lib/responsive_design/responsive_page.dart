@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
-import '../responsive_pages/large_view.dart';
 import '../responsive_pages/mobile_view.dart';
 import '../responsive_pages/tablet_view.dart';
 import '../responsive_pages/web_view.dart';
+import '../utils/import_export.dart';
 
 class ResponsivePage extends StatelessWidget {
   const ResponsivePage({super.key});

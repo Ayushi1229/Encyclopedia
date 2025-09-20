@@ -1,8 +1,7 @@
 import 'package:aswdc_flutter_pub/aswdc_flutter_pub.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
+import '../utils/import_export.dart';
 
 class Aboutus extends StatefulWidget {
   const Aboutus({super.key});
@@ -15,7 +14,6 @@ class _AboutusState extends State<Aboutus> {
   @override
   void initState() {
     super.initState();
-    // ✅ Status bar color set to lightGreen.shade600
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: appColor,
       statusBarIconBrightness: Brightness.light,
@@ -28,7 +26,6 @@ class _AboutusState extends State<Aboutus> {
       backgroundColor: lightGreenBackground,
       body: Stack(
         children: [
-          // Main DeveloperScreen content wrapped with custom theme
           Theme(
             data: Theme.of(context).copyWith(
               colorScheme: Theme.of(context).colorScheme.copyWith(
@@ -39,7 +36,6 @@ class _AboutusState extends State<Aboutus> {
                 onSecondary: colorWhite,
                 onSurface: colorGreyShade600,
               ),
-              // ✅ AppBar everywhere in lightGreen.shade600
               appBarTheme: AppBarTheme(
                 backgroundColor: appColor,
                 foregroundColor: colorWhite,
@@ -77,7 +73,6 @@ class _AboutusState extends State<Aboutus> {
               primaryIconTheme: const IconThemeData(
                 color: colorWhite,
               ),
-              // ✅ ADDED: Custom extension theme to override purple colors
               extensions: [
                 DeveloperScreenTheme(
                   sectionHeaderColor: appColor, // Change purple to light green
@@ -100,12 +95,10 @@ class _AboutusState extends State<Aboutus> {
               androidAPPURL: androidAppURL,
               iosAPPURL: iOSAppURL,
               appBarColor: appColor,
-              // ✅ ADDED: Override section colors directly
-              sectionHeaderColor: appColor, // Light green instead of purple
+              sectionHeaderColor: appColor,
               primaryColor: appColor,
             ),
           ),
-          // ✅ Back Button same lightGreen.shade600
           Positioned(
             top: MediaQuery.of(context).padding.top + 10,
             left: 10,
@@ -122,7 +115,6 @@ class _AboutusState extends State<Aboutus> {
     );
   }
 
-  // Optional custom share function
   void _shareApp() {
     const String appUrl =
         "https://play.google.com/store/apps/details?id=com.example.myapp";
@@ -130,7 +122,6 @@ class _AboutusState extends State<Aboutus> {
   }
 }
 
-// ✅ NEW: Custom theme extension for DeveloperScreen
 class DeveloperScreenTheme extends ThemeExtension<DeveloperScreenTheme> {
   final Color sectionHeaderColor;
   final Color sectionHeaderTextColor;
@@ -173,24 +164,20 @@ class DeveloperScreenTheme extends ThemeExtension<DeveloperScreenTheme> {
   }
 }
 
-// ✅ URLs
 const String androidAppURL =
     "https://play.google.com/store/apps/details?id=com.example.myapp";
 const String iOSAppURL = "https://apps.apple.com";
 const String shareMessage = "Download Ecodomia app today!";
 
-// ✅ Light Green Theme Colors
 const Color lightGreenBackground = Color(0xFFE8F5E9);
 final Color appColor = Colors.lightGreen.shade600; // ✅ Main Color Everywhere
 const Color colorWhite = Colors.white;
 const Color colorGreyShade600 = Colors.green;
 
-// ✅ Font weights
 const FontWeight medium = FontWeight.w500;
 const FontWeight regular = FontWeight.w400;
 const FontWeight regular500 = FontWeight.w500;
 
-// 🔹 Custom Helper Widgets - ALL UPDATED TO LIGHT GREEN
 
 Widget containersFortheData(String value) {
   return Container(
@@ -198,7 +185,7 @@ Widget containersFortheData(String value) {
     height: 40,
     width: 150,
     decoration: BoxDecoration(
-      color: appColor, // ✅ Light green instead of purple
+      color: appColor,
       borderRadius: BorderRadius.circular(6),
     ),
     child: Center(
@@ -211,14 +198,13 @@ Widget containersFortheData(String value) {
   );
 }
 
-// ✅ UPDATED: Custom section header widget to override purple
 Widget customSectionHeader(String title) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     decoration: BoxDecoration(
-      color: appColor, // ✅ Light green background
+      color: appColor,
       borderRadius: BorderRadius.circular(8),
       boxShadow: [
         BoxShadow(
@@ -231,7 +217,7 @@ Widget customSectionHeader(String title) {
     child: Text(
       title,
       style: const TextStyle(
-        color: colorWhite, // White text
+        color: colorWhite,
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),

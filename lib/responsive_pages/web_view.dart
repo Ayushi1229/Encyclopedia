@@ -1,17 +1,5 @@
 import 'dart:io';
-
-import 'package:audioplayers/audioplayers.dart';
-import 'package:encyclopedia/menu/feedback.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../detail_screen/detail_screen.dart';
 import '../utils/import_export.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_tts/flutter_tts.dart';
-
-import 'mobile_view.dart';
 
 class WebView extends StatefulWidget {
   WebView({Key? key}) : super(key: key) {
@@ -34,7 +22,6 @@ class _WebViewState extends State<WebView> {
   int _currentIndex = 0;
   late final PageController _pageController;
 
-  // Single search query for current tab
   String _searchQuery = '';
 
   @override
@@ -43,20 +30,13 @@ class _WebViewState extends State<WebView> {
     _pageController = PageController(initialPage: _currentIndex);
     player = AudioPlayer();
 
-    // Initialize TTS
     _initTts();
 
-    // Ensure data is loaded when widget initializes
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Force a rebuild after the frame is built to ensure controller data is available
       if (mounted) {
         setState(() {});
       }
     });
-
-    // Also try to trigger data loading if controller has a method for it
-    // Uncomment the line below if your controller has a loadData method
-    // controller.loadData();
   }
 
   void _initTts() {
@@ -79,7 +59,6 @@ class _WebViewState extends State<WebView> {
     super.dispose();
   }
 
-  // Helper method to get current list based on selected tab
   List<dynamic> _getCurrentListForTab(int tabIndex) {
     switch (tabIndex) {
       case 0:
@@ -95,7 +74,6 @@ class _WebViewState extends State<WebView> {
     }
   }
 
-  // Get filtered items based on search query for current tab
   List<dynamic> _getFilteredItems() {
     List<dynamic> currentList = _getCurrentListForTab(_currentIndex);
 
@@ -126,11 +104,10 @@ class _WebViewState extends State<WebView> {
   }
 
   void _onTabChanged(int index) {
-    if (_currentIndex == index) return; // Prevent unnecessary animations
+    if (_currentIndex == index) return;
 
     setState(() {
       _currentIndex = index;
-      // Clear search when changing tabs for better UX
       _searchController.clear();
       _searchQuery = '';
     });
@@ -159,7 +136,6 @@ class _WebViewState extends State<WebView> {
     }
   }
 
-  // Method to open reel view
   void _openReelView() {
     final currentItems = _getFilteredItems();
     if (currentItems.isNotEmpty) {
@@ -169,7 +145,7 @@ class _WebViewState extends State<WebView> {
           initialIndex: 0,
           categoryTitle: _getCurrentTitle(),
         ),
-        transition: Transition.fadeIn, // Or any other transition you prefer
+        transition: Transition.fadeIn,
         duration: const Duration(milliseconds: 400),
       );
     }
@@ -250,7 +226,6 @@ class _WebViewState extends State<WebView> {
                 ),
               ),
             ),
-          // Reel view button
           Container(
             margin: const EdgeInsets.only(right: 8),
             child: Material(
@@ -305,7 +280,6 @@ class _WebViewState extends State<WebView> {
       onPageChanged: (index) {
         setState(() {
           _currentIndex = index;
-          // Clear search when swiping to different tab
           _searchController.clear();
           _searchQuery = '';
         });
@@ -314,10 +288,8 @@ class _WebViewState extends State<WebView> {
       itemCount: 4,
       itemBuilder: (context, index) {
         return Obx(() {
-          // Get data for the specific tab
           List<dynamic> tabData = _getCurrentListForTab(index);
 
-          // Apply search filter only for current visible tab
           List<dynamic> displayData = tabData;
           if (index == _currentIndex && _searchQuery.isNotEmpty) {
             final lowerQuery = _searchQuery.toLowerCase().trim();
@@ -329,7 +301,6 @@ class _WebViewState extends State<WebView> {
             }).toList();
           }
 
-          // Check if data is loading for current tab
           if (displayData.isEmpty &&
               _searchQuery.isEmpty &&
               index == _currentIndex) {
@@ -340,7 +311,6 @@ class _WebViewState extends State<WebView> {
             );
           }
 
-          // Check if search is active but no results found for current tab
           if (_searchQuery.isNotEmpty &&
               displayData.isEmpty &&
               index == _currentIndex) {
@@ -382,7 +352,6 @@ class _WebViewState extends State<WebView> {
             );
           }
 
-          // Show the data
           return buildGrid(displayData);
         });
       },
@@ -869,10 +838,9 @@ class _WebViewState extends State<WebView> {
 
 void _shareApp() {
   const String message = "Download Ecodomia app today! \nhttps://play.google.com/store";
-  Share.share(message); // requires share_plus package
+  Share.share(message);
 }
 
-// Reel View Widget
 class ReelView extends StatefulWidget {
   final List<dynamic> items;
   final int initialIndex;
@@ -941,7 +909,6 @@ class _ReelViewState extends State<ReelView> {
             onPageChanged: (index) {
               setState(() {
                 _currentIndex = index;
-                // Stop any playing audio/voice when changing to new item
                 _stopAllAudio();
               });
             },
@@ -951,7 +918,6 @@ class _ReelViewState extends State<ReelView> {
               return _buildReelItem(item, index);
             },
           ),
-          // Top bar with close button
           Positioned(
             top: 50,
             left: 0,
@@ -1054,7 +1020,6 @@ class _ReelViewState extends State<ReelView> {
           ),
         ),
 
-        // Action Buttons (without view details button)
         Positioned(
           right: 16,
           bottom: 100,
@@ -1148,7 +1113,6 @@ class _ReelViewState extends State<ReelView> {
 
         setState(() => isSpeaking = true);
 
-        // Set TTS properties for better speech
         await flutterTts.setLanguage("en-US");
         await flutterTts.setSpeechRate(0.5);
         await flutterTts.setVolume(1.0);
@@ -1186,7 +1150,6 @@ class _ReelViewState extends State<ReelView> {
           await audioPlayer.stop();
           setState(() => isPlaying = true);
 
-          // Listen for when the audio completes
           audioPlayer.onPlayerComplete.listen((event) {
             if (mounted) {
               setState(() => isPlaying = false);

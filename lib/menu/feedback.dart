@@ -143,7 +143,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Name
               TextFormField(
                 controller: nameController,
                 decoration: _inputDecoration("Your Name"),
@@ -152,14 +151,13 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               const SizedBox(height: 15),
 
-              // Mobile
               TextFormField(
                 controller: mobileController,
                 decoration: _inputDecoration("Mobile Number"),
                 keyboardType: TextInputType.phone,
               ),
               const SizedBox(height: 15),
-              // Email
+
               TextFormField(
                 controller: emailController,
                 decoration: _inputDecoration("Email"),
@@ -167,7 +165,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               const SizedBox(height: 15),
 
-              // Message
               TextFormField(
                 controller: messageController,
                 decoration: _inputDecoration("Message"),
@@ -177,12 +174,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               const SizedBox(height: 25),
 
-              // Submit + Clear Buttons Row
               isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : Row(
                 children: [
-                  // Submit Button
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -204,7 +199,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     ),
                   ),
                   const SizedBox(width: 15),
-                  // Clear Button
+
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(

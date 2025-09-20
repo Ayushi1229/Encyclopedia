@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../controller/kingdom_controller.dart';
-import '../model/animal_model.dart';
-import '../model/bird_model.dart';
-import '../model/insect_model.dart';
-import '../model/reptile_model.dart';
+import '../utils/import_export.dart';
 
 class FavView extends StatelessWidget {
   final KingdomController controller = Get.find();
@@ -61,7 +55,6 @@ class FavView extends StatelessWidget {
             ),
           );
         } else {
-          // Create a reversed list to show most recent favorites first
           final reversedFavorites = controller.favoriteList.cast<dynamic>().reversed.toList();
 
           return ListView.builder(
@@ -159,8 +152,7 @@ class FavView extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            // Add a "Recently Added" badge for the first few items
-                            if (index < 3) // Show badge for first 3 items (most recent)
+                            if (index < 3)
                               Container(
                                 margin: const EdgeInsets.only(right: 8),
                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -326,7 +318,6 @@ class FavView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Heart button positioned in white space at top-right
                   Positioned(
                     top: -10,
                     right: -10,
