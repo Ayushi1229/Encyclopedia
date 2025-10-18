@@ -1,18 +1,42 @@
-import 'package:encyclopedia/splash/splash_screen.dart';
-import 'package:encyclopedia/utils/import_export.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:encyclopedia/splash/splash_screen.dart';
+import 'package:encyclopedia/utils/import_export.dart';
 import 'responsive_design/responsive_page.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Make status bar transparent so it merges with AppBar
+  // 🔄 Orientation restrictions
+  if (kIsWeb) {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+  } else if (Platform.isAndroid || Platform.isIOS) {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  } else {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+  }
+
+  // 🟢 Transparent status bar
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // Transparent status bar
-      statusBarIconBrightness: Brightness.light, // White icons
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
     ),
   );
 
@@ -28,16 +52,14 @@ class MyApp extends StatelessWidget {
       title: 'Animal Encyclopedia',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF9CCC65)),
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF9CCC65), // ✅ Light Green 400
-          foregroundColor: Colors.white,       // ✅ AppBar text/icons white
+          foregroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
           systemOverlayStyle: SystemUiOverlayStyle(
-            // statusBarColor: Color(0xFF9CCC65), // ✅ Status bar same as AppBar
-            statusBarIconBrightness: Brightness.light, // White icons
+            statusBarIconBrightness: Brightness.light,
           ),
         ),
       ),

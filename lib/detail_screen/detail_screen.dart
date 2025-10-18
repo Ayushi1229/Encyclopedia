@@ -300,43 +300,43 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                                 ),
                               ),
                               // ADDED: Visual indicator that image is tappable for reel view
-                              Positioned(
-                                top: 20,
-                                right: 20,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 6,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.6),
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                      color: Colors.white.withOpacity(0.3),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.play_circle_outline,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
-                                      const SizedBox(width: 4),
-                                      Text(
-                                        "Reel View",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              // Positioned(
+                              //   top: 20,
+                              //   right: 20,
+                              //   child: Container(
+                              //     padding: const EdgeInsets.symmetric(
+                              //       horizontal: 12,
+                              //       vertical: 6,
+                              //     ),
+                              //     decoration: BoxDecoration(
+                              //       color: Colors.black.withOpacity(0.6),
+                              //       borderRadius: BorderRadius.circular(20),
+                              //       border: Border.all(
+                              //         color: Colors.white.withOpacity(0.3),
+                              //         width: 1,
+                              //       ),
+                              //     ),
+                              //     // child: Row(
+                              //     //   mainAxisSize: MainAxisSize.min,
+                              //     //   children: [
+                              //     //     Icon(
+                              //     //       Icons.play_circle_outline,
+                              //     //       color: Colors.white,
+                              //     //       size: 16,
+                              //     //     ),
+                              //     //     const SizedBox(width: 4),
+                              //     //     Text(
+                              //     //       "Reel View",
+                              //     //       style: TextStyle(
+                              //     //         color: Colors.white,
+                              //     //         fontSize: 12,
+                              //     //         fontWeight: FontWeight.w500,
+                              //     //       ),
+                              //     //     ),
+                              //     //   ],
+                              //     // ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
